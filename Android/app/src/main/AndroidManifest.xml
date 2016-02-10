@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingsActivity"
+            android:label="@string/label_settings" >
+            <intent-filter>
+                <action android:name="com.example.ton.tonandroidblank.Preferences" />
+                <category android:name="android.intent.category.PREFERENCE" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
