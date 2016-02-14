@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="quickkill_switch"
+        android:summary="@string/pref_description_quickkill"
+        android:title="@string/pref_title_quickkill" />
+
+    <ListPreference
+        android:defaultValue="99701"
+        android:entries="@array/pref_location_titles"
+        android:entryValues="@array/pref_location_values"
+        android:key="location_list"
+        android:title="@string/pref_title_location" />
+
+</PreferenceScreen>

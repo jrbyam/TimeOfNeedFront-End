@@ -1,13 +1,17 @@
 package com.example.ton.tonandroidblank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.app.Fragment;
 
 public class BlankActivity extends AppCompatActivity {
 
@@ -22,7 +26,7 @@ public class BlankActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Why would you poke an envelope???", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -44,9 +48,30 @@ public class BlankActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent getScreenNameIntent = new Intent(this, SettingsActivity.class);
+            startActivity(getScreenNameIntent);
             return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        else
+            {return super.onOptionsItemSelected(item);}
     }
-}
+
+    public void onSettingsClick (View view) {
+        Intent getScreenNameIntent = new Intent(this, SettingsActivity.class);
+        startActivity(getScreenNameIntent);
+    }
+
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
+
+    } //end fragment
+} //end activity
