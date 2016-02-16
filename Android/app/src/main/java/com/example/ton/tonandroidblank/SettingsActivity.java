@@ -1,13 +1,14 @@
 package com.example.ton.tonandroidblank;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+//import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Andrew on 2016-02-09.
  */
-public class SettingsActivity extends PreferenceActivity{
+public class SettingsActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstance) {
