@@ -22,6 +22,7 @@ public class BlankActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,7 +30,7 @@ public class BlankActivity extends AppCompatActivity {
                 Snackbar.make(view, "Why would you poke an envelope???", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        }); */
     }
 
     @Override
@@ -58,6 +59,11 @@ public class BlankActivity extends AppCompatActivity {
 
     public void onSettingsClick (View view) {
         Intent getScreenNameIntent = new Intent(this, SettingsActivity.class);
+        startActivity(getScreenNameIntent);
+    }
+
+    public void onCategory1Click (View view) {
+        Intent getScreenNameIntent = new Intent(this, ListActivity.class);
         startActivity(getScreenNameIntent);
     }
 

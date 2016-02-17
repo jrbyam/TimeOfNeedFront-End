@@ -18,13 +18,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SettingsActivity"
-            android:label="@string/label_settings" >
+            android:label="@string/label_settings"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.example.ton.tonandroidblank.Preferences" />
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".ListActivity"
+            android:label="@string/category1"
+            android:theme="@style/AppTheme" />
+
 
     </application>
 
