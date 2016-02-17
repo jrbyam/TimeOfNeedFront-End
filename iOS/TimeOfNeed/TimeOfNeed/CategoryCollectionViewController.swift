@@ -106,5 +106,7 @@ class CategoryCollectionViewController: UICollectionViewController {
     
     }
     */
-
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("services", sender: nil)
+    }
 }
