@@ -12,6 +12,7 @@
         android:entries="@array/pref_location_titles"
         android:entryValues="@array/pref_location_values"
         android:key="location_list"
+        android:summary="%s"
         android:title="@string/pref_title_location" />
 
 </PreferenceScreen>

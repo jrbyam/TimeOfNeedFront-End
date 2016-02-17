@@ -21,7 +21,11 @@
 
         <activity android:name=".SettingsActivity"
             android:label="@string/label_settings"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".BlankActivity">
+            <!-- Parent activity meta-data for 4.0 Ice Cream Sandwich -->
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ton.tonandroidblank.BlankActivity" />
             <intent-filter>
                 <action android:name="com.example.ton.tonandroidblank.Preferences" />
                 <category android:name="android.intent.category.PREFERENCE" />
@@ -30,7 +34,12 @@
         
         <activity android:name=".ListActivity"
             android:label="@string/category1"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".BlankActivity">
+            <!-- Parent activity meta-data for 4.0 Ice Cream Sandwich -->
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ton.tonandroidblank.BlankActivity" />
+        </activity>
 
 
     </application>
