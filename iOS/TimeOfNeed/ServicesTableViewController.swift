@@ -13,7 +13,7 @@ class ServicesTableViewController: UITableViewController {
 /*
     Class Constants
 */
-    let cellID = "cell"
+    let cellID = "location"
     let foodServices: [[String: String]] =  [   [   "name"              : "Stone Soup Cafe",
         "address"           : "507 Gaffney Road",
         "city"              : "Fairbanks",
@@ -95,7 +95,6 @@ class ServicesTableViewController: UITableViewController {
     Class Functions
 */
     override func viewDidLoad() {
-        print("This happens")
     }
 /*
     TableView Functions

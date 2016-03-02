@@ -14,19 +14,14 @@ class CategoryCollectionViewController: UICollectionViewController {
     
     let labelNames : [String] = ["Shelter", "Food", "Clothing", "Medical Facilities", "Support Groups", "Employment Assistance", "Transportation Assistance", "Showers", "Suicide Prevention", "Domestic Violence Resources", "Veteran Services", "Sex Trafficking Resources"]
     let pictureNames : [String] = ["shelter_icon.png", "food_icon.png", "clothing_icon.png", "medical_facilities_icon.png", "support_groups_icon.png", "employment_assistance_icon.png", "transportation_assistance_icon.png", "showers_icon.png", "suicide_prevention_icon.png", "domestic_violence_resources_icon.png", "veteran_services_icon.png", "sex_trafficking_resources_icon.png"]
-
-    // Just to pass to the toolbar.
-    func emptyFunc() {
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.toolbarItems = [UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "emptyFunc"), //Settings Icon
+        self.toolbarItems = [UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings"), //Settings Icon
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: "emptyFunc"),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: "search"),
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "emptyFunc") ]
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "quickKill") ]
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -36,6 +31,18 @@ class CategoryCollectionViewController: UICollectionViewController {
         //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+    }
+    
+    func settings() {
+        performSegueWithIdentifier("settings", sender: nil)
+    }
+    
+    func search() {
+        
+    }
+    
+    func quickKill() {
+        exit(0) // Sweet and simple
     }
 
     override func didReceiveMemoryWarning() {
