@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0D3B131CA096D500B2ED40 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D3B121CA096D500B2ED40 /* Reachability.m */; };
 		3B620C5A1CA07A940099FA51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C591CA07A940099FA51 /* MainViewController.swift */; };
 		3B620C5C1CA081600099FA51 /* ServiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C5B1CA081600099FA51 /* ServiceSelectionView.swift */; };
+		3B620C611CA08BF80099FA51 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C601CA08BF80099FA51 /* Globals.swift */; };
 		3B8B101E1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B101D1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift */; };
 		3B8B10201C84EE4A00B6BC51 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B101F1C84EE4A00B6BC51 /* SettingsTableViewController.swift */; };
 		3B8B10221C86745900B6BC51 /* SettingsCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B10211C86745900B6BC51 /* SettingsCategoryTableViewController.swift */; };
@@ -40,8 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B0D3B101CA096C100B2ED40 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3B0D3B111CA096D400B2ED40 /* TimeOfNeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeOfNeed-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B0D3B121CA096D500B2ED40 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3B620C591CA07A940099FA51 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3B620C5B1CA081600099FA51 /* ServiceSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSelectionView.swift; sourceTree = "<group>"; };
+		3B620C601CA08BF80099FA51 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		3B8B101D1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		3B8B101F1C84EE4A00B6BC51 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3B8B10211C86745900B6BC51 /* SettingsCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -110,8 +116,11 @@
 			isa = PBXGroup;
 			children = (
 				3BA57F871C6449550017F8D4 /* AppDelegate.swift */,
+				3B620C601CA08BF80099FA51 /* Globals.swift */,
 				3BA57F8D1C6449550017F8D4 /* Main.storyboard */,
 				3B620C591CA07A940099FA51 /* MainViewController.swift */,
+				3B0D3B101CA096C100B2ED40 /* Reachability.h */,
+				3B0D3B121CA096D500B2ED40 /* Reachability.m */,
 				3B620C5B1CA081600099FA51 /* ServiceSelectionView.swift */,
 				3B8B101F1C84EE4A00B6BC51 /* SettingsTableViewController.swift */,
 				3B8B101D1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift */,
@@ -121,6 +130,7 @@
 				3BA57F901C6449550017F8D4 /* Assets.xcassets */,
 				3BA57F921C6449550017F8D4 /* LaunchScreen.storyboard */,
 				3BA57F951C6449550017F8D4 /* Info.plist */,
+				3B0D3B111CA096D400B2ED40 /* TimeOfNeed-Bridging-Header.h */,
 			);
 			path = TimeOfNeed;
 			sourceTree = "<group>";
@@ -205,7 +215,7 @@
 		3BA57F7C1C6449540017F8D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = TON;
 				TargetAttributes = {
@@ -278,9 +288,11 @@
 				3BEF187D1C7311BB00301D15 /* ServicesTableViewCell.swift in Sources */,
 				3B8B10221C86745900B6BC51 /* SettingsCategoryTableViewController.swift in Sources */,
 				3B8B10201C84EE4A00B6BC51 /* SettingsTableViewController.swift in Sources */,
+				3B0D3B131CA096D500B2ED40 /* Reachability.m in Sources */,
 				3B620C5A1CA07A940099FA51 /* MainViewController.swift in Sources */,
 				3BA57F881C6449550017F8D4 /* AppDelegate.swift in Sources */,
 				3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */,
+				3B620C611CA08BF80099FA51 /* Globals.swift in Sources */,
 				3B620C5C1CA081600099FA51 /* ServiceSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,10 +435,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TimeOfNeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CS472.TimeOfNeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TimeOfNeed/TimeOfNeed-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -434,10 +449,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TimeOfNeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CS472.TimeOfNeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TimeOfNeed/TimeOfNeed-Bridging-Header.h";
 			};
 			name = Release;
 		};

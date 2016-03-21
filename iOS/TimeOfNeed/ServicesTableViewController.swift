@@ -14,80 +14,10 @@ class ServicesTableViewController: UITableViewController {
     Class Constants
 */
     let cellID = "location"
-    let foodServices: [[String: String]] =  [   [   "name"              : "Stone Soup Cafe",
-        "address"           : "507 Gaffney Road",
-        "city"              : "Fairbanks",
-        "state"             : "AK",
-        "zip code"          : "99701",
-        "hours"             : "9am-5pm",
-        "phone number"      : "907-456-8317",
-        "phone extension"   : "",
-        "website"           : "www.stonesoupcafe.org",
-        "distance"          : "0.2" ],
-        [   "name"              : "Fairbanks Rescue Mission",
-            "address"           : "723 27th Street",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "8am-5pm",
-            "phone number"      : "907-452-5343",
-            "phone extension"   : "",
-            "website"           : "",
-            "distance"          : "0.4" ],
-        [   "name"              : "Immaculate Conception Church",
-            "address"           : "2 Doyon Place",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "12pm-5pm",
-            "phone number"      : "907-456-5656",
-            "phone extension"   : "",
-            "website"           : "",
-            "distance"          : "0.9" ],
-        [   "name"              : "The Salvation Army",
-            "address"           : "2222 S. Cushman Street",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "9am-5pm",
-            "phone number"      : "907-456-5656",
-            "phone extension"   : "",
-            "website"           : "",
-            "distance"          : "1.2" ],
-        [   "name"              : "FNA Elders Program",
-            "address"           : "317 Wendell Street",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "8am-5pm",
-            "phone number"      : "907-456-5656",
-            "phone extension"   : "",
-            "website"           : "",
-            "distance"          : "2.5" ],
-        [   "name"              : "North Star Council On Aging",
-            "address"           : "1424 Moore Street",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "8am-5pm",
-            "phone number"      : "907-456-5656",
-            "phone extension"   : "",
-            "website"           : "",
-            "distance"          : "2.8" ],
-        [   "name"              : "Fairbanks Food Bank",
-            "address"           : "725 26th Avenue",
-            "city"              : "Fairbanks",
-            "state"             : "AK",
-            "zip code"          : "99701",
-            "hours"             : "6am-6pm",
-            "phone number"      : "907-456-2990",
-            "phone extension"   : "101",
-            "website"           : "www.fairbanksfoodbank.org",
-            "distance"          : "3.1" ]
-    ]
 /*
     Class Variables
 */
+    var serviceLocations : [NSDictionary] = [NSDictionary]()
     var selectedIndexPath: NSIndexPath?
     var expandCurrentCell: Bool = false;
     
@@ -95,6 +25,15 @@ class ServicesTableViewController: UITableViewController {
     Class Functions
 */
     override func viewDidLoad() {
+        for location : NSDictionary in (NSUserDefaults.standardUserDefaults().objectForKey("serviceData") as! [NSDictionary]) {
+            for service : String in (location["services"] as! [String]) {
+                if (service == serviceSelected) {
+                    serviceLocations += [location];
+                    break;
+                }
+            }
+        }
+        print (serviceLocations)
     }
 /*
     TableView Functions
@@ -104,23 +43,20 @@ class ServicesTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foodServices.count
+        return serviceLocations.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! ServicesTableViewCell
-        cell.serviceName.text = foodServices[indexPath.row]["name"]
-        cell.distance.text = foodServices[indexPath.row]["distance"]
-        cell.phoneNumber.text = foodServices[indexPath.row]["phone number"]
-        cell.hoursTimes.text = foodServices[indexPath.row]["hours"]
+        cell.serviceName.text = (serviceLocations[indexPath.row]["name"] as! String)
+//        cell.distance.text = serviceLocations[indexPath.row]["distance"]
+        cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
+//        cell.hoursTimes.text = serviceLocations[indexPath.row]["hours"]
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("showExtraInfo:"))
         cell.moreArrow.userInteractionEnabled = true
         cell.moreArrow.addGestureRecognizer(tapGestureRecognizer)
         cell.serviceDescription.text = "This is the cool description. It's descriptive. It describes this service. If you'd like to know more, check out our website below."
-        cell.website.text = foodServices[indexPath.row]["website"]
-        if cell.website.text == "" {
-            cell.website.text = "www.website.org"
-        }
+        cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
         return cell
     }
     

@@ -13,8 +13,7 @@ class ServiceSelectionView: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let _ = touches.first {
             // On a touch, save the name of the category that was selected to be accessed when displaying the services
-            let selectedService = (self.viewWithTag(self.tag + 1) as! UILabel).text
-            NSUserDefaults.standardUserDefaults().setValue(selectedService, forKey: "service")
+            serviceSelected = (self.viewWithTag(self.tag + 1) as! UILabel).text!
         }
         super.touchesBegan(touches, withEvent:event)
     }
