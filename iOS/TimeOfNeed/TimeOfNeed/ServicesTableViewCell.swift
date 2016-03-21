@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ServicesTableViewCell: UITableViewCell {
     @IBOutlet weak var serviceName: UILabel!
@@ -20,6 +21,7 @@ class ServicesTableViewCell: UITableViewCell {
     @IBOutlet weak var serviceDescription: UILabel!
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var website: UILabel!
+    @IBOutlet var mapView: MKMapView!
     class var expandedHeight: CGFloat { get { return 300 } }
     class var quickLookHeight: CGFloat { get { return 100 } }
     class var defaultHeight: CGFloat { get { return 60 } }

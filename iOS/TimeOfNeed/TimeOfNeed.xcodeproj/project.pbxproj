@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B0D3B131CA096D500B2ED40 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D3B121CA096D500B2ED40 /* Reachability.m */; };
+		3B0D3B151CA0AD9600B2ED40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */; };
 		3B620C5A1CA07A940099FA51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C591CA07A940099FA51 /* MainViewController.swift */; };
 		3B620C5C1CA081600099FA51 /* ServiceSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C5B1CA081600099FA51 /* ServiceSelectionView.swift */; };
 		3B620C611CA08BF80099FA51 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C601CA08BF80099FA51 /* Globals.swift */; };
@@ -45,6 +46,7 @@
 		3B0D3B101CA096C100B2ED40 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3B0D3B111CA096D400B2ED40 /* TimeOfNeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeOfNeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B0D3B121CA096D500B2ED40 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3B620C591CA07A940099FA51 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3B620C5B1CA081600099FA51 /* ServiceSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSelectionView.swift; sourceTree = "<group>"; };
 		3B620C601CA08BF80099FA51 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B0D3B151CA0AD9600B2ED40 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,7 @@
 		3BA57F7B1C6449540017F8D4 = {
 			isa = PBXGroup;
 			children = (
+				3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */,
 				3BA57F861C6449550017F8D4 /* TimeOfNeed */,
 				3BA57F9D1C6449550017F8D4 /* TimeOfNeedTests */,
 				3BA57FA81C6449560017F8D4 /* TimeOfNeedUITests */,

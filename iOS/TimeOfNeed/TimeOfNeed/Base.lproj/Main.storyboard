@@ -727,47 +727,58 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="299"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQm-Gn-Vge" userLabel="Background">
-                                            <rect key="frame" x="0.0" y="60" width="600" height="250"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQm-Gn-Vge" userLabel="Background">
+                                            <rect key="frame" x="0.0" y="59" width="600" height="251"/>
                                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbL-dO-5wX" userLabel="Extra Info View">
                                             <rect key="frame" x="8" y="105" width="584" height="186"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="Google-Maps-Google-Maps-Maps-Google" translatesAutoresizingMaskIntoConstraints="NO" id="rgX-s7-KvN">
-                                                    <rect key="frame" x="8" y="8" width="170" height="170"/>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="K3B-eV-WmK">
+                                                    <rect key="frame" x="8" y="10" width="275" height="166"/>
+                                                </mapView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZr-fc-ST0">
+                                                    <rect key="frame" x="300" y="10" width="274" height="166"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="N/A" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="11" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="jwp-ta-fxk" userLabel="Text">
+                                                            <rect key="frame" x="6" y="6" width="262" height="127"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="N/A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-W2-xeF">
+                                                            <rect key="frame" x="6" y="139" width="262" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="jzs-o3-OPI"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="170" id="jtt-bS-NpS"/>
+                                                        <constraint firstItem="Ve5-W2-xeF" firstAttribute="leading" secondItem="lZr-fc-ST0" secondAttribute="leading" constant="6" id="RKf-3Q-Rjk"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Ve5-W2-xeF" secondAttribute="bottom" constant="6" id="S71-1A-mbw"/>
+                                                        <constraint firstItem="jwp-ta-fxk" firstAttribute="top" secondItem="lZr-fc-ST0" secondAttribute="top" constant="6" id="bsB-lJ-HjO"/>
+                                                        <constraint firstItem="jwp-ta-fxk" firstAttribute="centerX" secondItem="lZr-fc-ST0" secondAttribute="centerX" id="cT7-3Y-ILN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ve5-W2-xeF" secondAttribute="trailing" constant="6" id="eIn-SB-td3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="jwp-ta-fxk" secondAttribute="trailing" constant="6" id="mkX-FV-uCn"/>
+                                                        <constraint firstItem="Ve5-W2-xeF" firstAttribute="top" secondItem="jwp-ta-fxk" secondAttribute="bottom" constant="6" id="pQJ-Xk-t1b"/>
                                                     </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="11" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="jwp-ta-fxk" userLabel="Text">
-                                                    <rect key="frame" x="194" y="8" width="382" height="141"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="141" id="e0L-hu-dfB"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Site" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ve5-W2-xeF">
-                                                    <rect key="frame" x="190" y="157" width="386" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="Ve5-W2-xeF" firstAttribute="top" secondItem="jwp-ta-fxk" secondAttribute="bottom" constant="8" id="21n-IJ-eaM"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ve5-W2-xeF" secondAttribute="trailing" constant="8" id="2Sd-bl-R4y"/>
                                                 <constraint firstAttribute="height" constant="186" id="3ke-rG-3zp"/>
-                                                <constraint firstItem="jwp-ta-fxk" firstAttribute="leading" secondItem="rgX-s7-KvN" secondAttribute="trailing" constant="16" id="6DI-zn-eaU"/>
-                                                <constraint firstAttribute="trailing" secondItem="jwp-ta-fxk" secondAttribute="trailing" constant="8" id="BP4-lQ-UP3"/>
-                                                <constraint firstItem="jwp-ta-fxk" firstAttribute="top" secondItem="NbL-dO-5wX" secondAttribute="top" constant="8" id="V0d-6c-uva"/>
-                                                <constraint firstItem="Ve5-W2-xeF" firstAttribute="leading" secondItem="rgX-s7-KvN" secondAttribute="trailing" constant="12" id="YZt-AL-VLE"/>
-                                                <constraint firstAttribute="bottom" secondItem="rgX-s7-KvN" secondAttribute="bottom" constant="8" id="fcb-qD-Fym"/>
-                                                <constraint firstItem="rgX-s7-KvN" firstAttribute="leading" secondItem="NbL-dO-5wX" secondAttribute="leading" constant="8" id="sEk-3e-QoF"/>
-                                                <constraint firstItem="rgX-s7-KvN" firstAttribute="top" secondItem="NbL-dO-5wX" secondAttribute="top" constant="8" id="uQE-6J-St7"/>
+                                                <constraint firstItem="K3B-eV-WmK" firstAttribute="leading" secondItem="NbL-dO-5wX" secondAttribute="leadingMargin" id="84s-2H-EJd"/>
+                                                <constraint firstItem="lZr-fc-ST0" firstAttribute="width" secondItem="K3B-eV-WmK" secondAttribute="width" id="LBy-Sr-zEn"/>
+                                                <constraint firstItem="K3B-eV-WmK" firstAttribute="centerY" secondItem="NbL-dO-5wX" secondAttribute="centerY" id="SC7-P1-KPO"/>
+                                                <constraint firstItem="K3B-eV-WmK" firstAttribute="top" secondItem="lZr-fc-ST0" secondAttribute="top" id="YEF-1h-zt3"/>
+                                                <constraint firstItem="lZr-fc-ST0" firstAttribute="top" secondItem="NbL-dO-5wX" secondAttribute="top" constant="10" id="cIx-gu-BUz"/>
+                                                <constraint firstAttribute="trailing" secondItem="lZr-fc-ST0" secondAttribute="trailing" constant="10" id="e8a-F0-8f1"/>
+                                                <constraint firstAttribute="bottom" secondItem="lZr-fc-ST0" secondAttribute="bottom" constant="10" id="had-hI-Rkf"/>
+                                                <constraint firstItem="lZr-fc-ST0" firstAttribute="leading" secondItem="K3B-eV-WmK" secondAttribute="trailing" constant="17" id="u2J-jQ-M3E"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="BM7-a1-Htk">
@@ -818,7 +829,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(907) 123-4567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="fr1-3C-uBv" userLabel="Number">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="fr1-3C-uBv" userLabel="Number">
                                             <rect key="frame" x="415" y="69" width="140" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="140" id="Eed-lC-DcH"/>
@@ -872,6 +883,7 @@
                                     <outlet property="extraInfoView" destination="NbL-dO-5wX" id="op9-mi-RbB"/>
                                     <outlet property="hoursLabel" destination="xUP-dd-mqA" id="6DT-Br-Xec"/>
                                     <outlet property="hoursTimes" destination="gDz-pD-1kb" id="8od-24-UP8"/>
+                                    <outlet property="mapView" destination="K3B-eV-WmK" id="FGz-hm-WSh"/>
                                     <outlet property="moreArrow" destination="5eJ-TG-DdD" id="GaA-YH-ZqO"/>
                                     <outlet property="phoneLabel" destination="ima-oh-p35" id="MH3-eW-0CB"/>
                                     <outlet property="phoneNumber" destination="fr1-3C-uBv" id="8NS-8m-JCI"/>
@@ -894,7 +906,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Google-Maps-Google-Maps-Maps-Google" width="640" height="400"/>
         <image name="More_Arrow.png" width="128" height="128"/>
         <image name="Transition_Icon.png" width="128" height="128"/>
         <image name="clothing_icon" width="128" height="91"/>
