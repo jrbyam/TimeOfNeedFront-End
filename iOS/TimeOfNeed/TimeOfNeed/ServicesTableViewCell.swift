@@ -25,6 +25,7 @@ class ServicesTableViewCell: UITableViewCell {
     class var expandedHeight: CGFloat { get { return 300 } }
     class var quickLookHeight: CGFloat { get { return 100 } }
     class var defaultHeight: CGFloat { get { return 60 } }
+    var observerAdded : Bool = false;
     
     func checkHeight() {
         // Set hidden status of quick look elements
@@ -39,7 +40,10 @@ class ServicesTableViewCell: UITableViewCell {
     }
     
     func watchFrameChanges() {
-        addObserver(self, forKeyPath: "frame", options: .New, context: nil)
+        if !observerAdded {
+            observerAdded = true
+            addObserver(self, forKeyPath: "frame", options: .New, context: nil)
+        }
         checkHeight()
     }
     
@@ -47,5 +51,9 @@ class ServicesTableViewCell: UITableViewCell {
         if keyPath == "frame" {
             checkHeight()
         }
+    }
+    
+    deinit {
+        removeObserver(self, forKeyPath: "frame")
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -110,7 +111,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             connectedToServer = false
             return
         }
-        let jsonDict: NSDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
+        let jsonDict: NSMutableDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSMutableDictionary
+        // Add coordinates for each based on address
+        for location : NSMutableDictionary in (jsonDict["locations"] as! [NSMutableDictionary]) {
+            if location["address"] != nil {
+                CLGeocoder().geocodeAddressString((location["address"] as! String), completionHandler: {(placemarks, error) -> Void in
+                    if (error) != nil {
+                        print("Error", error)
+                    }
+                    if let placemark = placemarks?.first {
+                        servicesCoordinates.append(placemark.location!.coordinate)
+                    }
+                })
+            }
+        }
         // Load data into persistant storage
         NSUserDefaults.standardUserDefaults().setObject(jsonDict["locations"], forKey: "serviceData")
     }

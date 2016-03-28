@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class ServicesTableViewController: UITableViewController {
     
@@ -14,10 +16,11 @@ class ServicesTableViewController: UITableViewController {
     Class Constants
 */
     let cellID = "location"
+    let serviceData : [NSMutableDictionary] = (NSUserDefaults.standardUserDefaults().objectForKey("serviceData") as! [NSMutableDictionary])
 /*
     Class Variables
 */
-    var serviceLocations : [NSDictionary] = [NSDictionary]()
+    var serviceLocations : [NSMutableDictionary] = [NSMutableDictionary]()
     var selectedIndexPath: NSIndexPath?
     var expandCurrentCell: Bool = false;
     
@@ -25,7 +28,7 @@ class ServicesTableViewController: UITableViewController {
     Class Functions
 */
     override func viewDidLoad() {
-        for location : NSDictionary in (NSUserDefaults.standardUserDefaults().objectForKey("serviceData") as! [NSDictionary]) {
+        for location : NSMutableDictionary in serviceData {
             for service : String in (location["services"] as! [String]) {
                 if (service == serviceSelected) {
                     serviceLocations += [location];
@@ -33,7 +36,9 @@ class ServicesTableViewController: UITableViewController {
                 }
             }
         }
-        print (serviceLocations)
+        // Sort locations according to distance from set starting location
+        serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) <
+            (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) })
     }
 /*
     TableView Functions
@@ -49,14 +54,35 @@ class ServicesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! ServicesTableViewCell
         cell.serviceName.text = (serviceLocations[indexPath.row]["name"] as! String)
-//        cell.distance.text = serviceLocations[indexPath.row]["distance"]
-        cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
+        cell.distance.text = String(format:"%.2f",
+            (servicesCoordinates[(serviceData.indexOf(serviceLocations[indexPath.row]))!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) * 0.000621371) // Convert to miles
+        if serviceLocations[indexPath.row]["phone"] != nil {
+            cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
+        }
 //        cell.hoursTimes.text = serviceLocations[indexPath.row]["hours"]
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("showExtraInfo:"))
         cell.moreArrow.userInteractionEnabled = true
         cell.moreArrow.addGestureRecognizer(tapGestureRecognizer)
         cell.serviceDescription.text = "This is the cool description. It's descriptive. It describes this service. If you'd like to know more, check out our website below."
-        cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
+        if serviceLocations[indexPath.row]["website"] != nil {
+            cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
+        }
+        // Set map to correct location
+        CLGeocoder().geocodeAddressString((serviceLocations[indexPath.row]["address"] as! String), completionHandler: {(placemarks, error) -> Void in
+            if (error) != nil {
+                print("Error", error)
+            }
+            if let placemark = placemarks?.first {
+                let coordinates : CLLocationCoordinate2D = placemark.location!.coordinate
+                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                cell.mapView.setRegion(region, animated: true)
+                // Drop a pin
+                let dropPin = MKPointAnnotation()
+                dropPin.coordinate = coordinates
+                dropPin.title = (self.serviceLocations[indexPath.row]["name"] as! String)
+                cell.mapView.addAnnotation(dropPin)
+            }
+        })
         return cell
     }
     

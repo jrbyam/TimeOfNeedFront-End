@@ -4,6 +4,8 @@
     These are the global constants and variables used throughout the project.
 */
 
+import CoreLocation
+
 //  Global Constant
 //  ---------------
 
@@ -18,12 +20,14 @@ var cannotContinue = false
 
 var connectedToServer = true 
 
-var displayOldData = false 
-
-var serviceSelected = ""
+var displayOldData = false
 
 var netStatus = reachability.currentReachabilityStatus()
 
 var networkConnected = true
 
 var reachability = Reachability.reachabilityForInternetConnection()
+
+var servicesCoordinates = Array<CLLocationCoordinate2D>()
+
+var serviceSelected = ""
