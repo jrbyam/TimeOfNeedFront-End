@@ -114,19 +114,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let jsonDict: NSMutableDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSMutableDictionary
         // Add coordinates for each based on address
         for location : NSMutableDictionary in (jsonDict["locations"] as! [NSMutableDictionary]) {
+            servicesCoordinates.append(CLLocationCoordinate2D()) // Include a placeholder
             if location["address"] != nil {
                 CLGeocoder().geocodeAddressString((location["address"] as! String), completionHandler: {(placemarks, error) -> Void in
                     if (error) != nil {
                         print("Error", error)
                     }
                     if let placemark = placemarks?.first {
-                        servicesCoordinates.append(placemark.location!.coordinate)
+                        servicesCoordinates[serviceData.indexOf(location)!] = placemark.location!.coordinate
                     }
                 })
             }
         }
         // Load data into persistant storage
-        NSUserDefaults.standardUserDefaults().setObject(jsonDict["locations"], forKey: "serviceData")
+        serviceData = (jsonDict["locations"] as! Array<NSMutableDictionary>)
+        NSUserDefaults.standardUserDefaults().setObject(serviceData, forKey: "serviceData")
     }
     // getFileUrl
     // This function retrieves a valid url from the document directory.

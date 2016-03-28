@@ -16,7 +16,6 @@ class ServicesTableViewController: UITableViewController {
     Class Constants
 */
     let cellID = "location"
-    let serviceData : [NSMutableDictionary] = (NSUserDefaults.standardUserDefaults().objectForKey("serviceData") as! [NSMutableDictionary])
 /*
     Class Variables
 */
@@ -37,8 +36,12 @@ class ServicesTableViewController: UITableViewController {
             }
         }
         // Sort locations according to distance from set starting location
-        serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) <
-            (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) })
+        if serviceLocations.count > 1 {
+            serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) <
+                (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) })
+        } else if serviceLocations.count == 0 {
+            // Show a sorry message
+        }
     }
 /*
     TableView Functions
