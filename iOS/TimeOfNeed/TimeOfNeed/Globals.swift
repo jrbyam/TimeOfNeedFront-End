@@ -33,3 +33,5 @@ var serviceData = Array<NSMutableDictionary>()
 var servicesCoordinates = Array<CLLocationCoordinate2D>()
 
 var serviceSelected = ""
+
+var startingCoordinates = CLLocationCoordinate2D()

@@ -71,21 +71,14 @@ class ServicesTableViewController: UITableViewController {
             cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
         }
         // Set map to correct location
-        CLGeocoder().geocodeAddressString((serviceLocations[indexPath.row]["address"] as! String), completionHandler: {(placemarks, error) -> Void in
-            if (error) != nil {
-                print("Error", error)
-            }
-            if let placemark = placemarks?.first {
-                let coordinates : CLLocationCoordinate2D = placemark.location!.coordinate
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-                cell.mapView.setRegion(region, animated: true)
-                // Drop a pin
-                let dropPin = MKPointAnnotation()
-                dropPin.coordinate = coordinates
-                dropPin.title = (self.serviceLocations[indexPath.row]["name"] as! String)
-                cell.mapView.addAnnotation(dropPin)
-            }
-        })
+        let region = MKCoordinateRegion(center: servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!],
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        cell.mapView.setRegion(region, animated: true)
+        // Drop a pin
+        let dropPin = MKPointAnnotation()
+        dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
+        dropPin.title = (self.serviceLocations[indexPath.row]["name"] as! String)
+        cell.mapView.addAnnotation(dropPin)
         return cell
     }
     

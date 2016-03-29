@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 }
             }
             self.updateContent()
+            // If not already granted, ask for permission to use current location
+            
         }
         return true;
     }
