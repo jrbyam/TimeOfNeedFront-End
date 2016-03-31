@@ -17,11 +17,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         showQuickClose.addTarget(self, action: Selector("switchFlipped:"), forControlEvents: UIControlEvents.ValueChanged)
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
-            showQuickClose.on = true
-        } else {
-            showQuickClose.on = false
-        }
+        showQuickClose.on = (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -32,12 +28,9 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    func switchFlipped(showQuickClose: UISwitch) {
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
-            NSUserDefaults.standardUserDefaults().setValue(false, forKey: "showQuickKill")
-        } else {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showQuickKill")
-        }
+    func switchFlipped() {
+        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool)
+        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showQuickKill")
     }
 }
 
