@@ -10,8 +10,18 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
     
+    @IBOutlet var showQuickClose: UISwitch!
     @IBAction func backToMain(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    override func viewDidLoad() {
+        showQuickClose.addTarget(self, action: Selector("switchFlipped:"), forControlEvents: UIControlEvents.ValueChanged)
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
+            showQuickClose.on = true
+        } else {
+            showQuickClose.on = false
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -19,6 +29,14 @@ class SettingsTableViewController: UITableViewController {
             performSegueWithIdentifier("address", sender: nil)
         } else if (indexPath.row == 2) {
             performSegueWithIdentifier("categories", sender: nil)
+        }
+    }
+    
+    func switchFlipped(showQuickClose: UISwitch) {
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
+            NSUserDefaults.standardUserDefaults().setValue(false, forKey: "showQuickKill")
+        } else {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showQuickKill")
         }
     }
 }

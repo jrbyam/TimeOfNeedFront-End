@@ -195,6 +195,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="showQuickClose" destination="Hvk-d7-CsJ" id="VX6-tM-Xg3"/>
                         <segue destination="vSU-6Z-taG" kind="show" identifier="categories" id="bNv-kS-UI6"/>
                         <segue destination="De4-0j-tvj" kind="show" identifier="address" id="AzI-Jo-RoX"/>
                     </connections>
@@ -806,7 +807,7 @@
                         <outlet property="employmentAssistance" destination="iBb-g7-Qku" id="x9v-sy-DwL"/>
                         <outlet property="food" destination="a4u-QF-nwz" id="WI6-1y-WDm"/>
                         <outlet property="medicalFacilities" destination="8Lx-Na-Toh" id="aOM-Nb-ykv"/>
-                        <outlet property="sexTraffickingResources" destination="Wvt-o9-tsK" id="4Wq-pb-Dca"/>
+                        <outlet property="referalServices" destination="Wvt-o9-tsK" id="kE7-Wa-9ue"/>
                         <outlet property="shelter" destination="oIz-rp-BOk" id="HX3-aW-QhM"/>
                         <outlet property="showers" destination="3tA-ny-wgj" id="ouH-OH-TTB"/>
                         <outlet property="suicidePrevention" destination="msm-M3-aTd" id="EoW-wa-4En"/>

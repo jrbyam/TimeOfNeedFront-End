@@ -24,7 +24,7 @@ class MainViewController: UIViewController  {
     @IBOutlet weak var suicidePrevention: UIView!
     @IBOutlet weak var domesticViolenceResources: UIView!
     @IBOutlet weak var veteranServices: UIView!
-    @IBOutlet weak var sexTraffickingResources: UIView!
+    @IBOutlet weak var referalServices: UIView!
     
 /*
     Class Functions:
@@ -46,38 +46,133 @@ class MainViewController: UIViewController  {
             }
         }
         
+        // Initialize settings to defaults
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showQuickKill")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showShelter") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showShelter")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showFood") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showFood")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showClothing") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showClothing")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showMedicalFacilities") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showMedicalFacilities")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showSupportGroups") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showSupportGroups")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showEmploymentAssistance") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showEmploymentAssistance")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showTransportationAssistance") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showTransportationAssistance")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showShowers") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showShowers")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showSuicidePrevention") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showSuicidePrevention")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showDomesticViolenceResources") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showDomesticViolenceResources")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showVeteranServices") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showVeteranServices")
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showReferalServices") == nil) {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showReferalServices")
+        }
+        
         // Add tap gestrues to each of the service selection views (they each need their own)
-        let gesture1 = UITapGestureRecognizer(target: self, action: "showServices:")
-        shelter.addGestureRecognizer(gesture1)
-        let gesture2 = UITapGestureRecognizer(target: self, action: "showServices:")
-        food.addGestureRecognizer(gesture2)
-        let gesture3 = UITapGestureRecognizer(target: self, action: "showServices:")
-        clothing.addGestureRecognizer(gesture3)
-        let gesture4 = UITapGestureRecognizer(target: self, action: "showServices:")
-        medicalFacilities.addGestureRecognizer(gesture4)
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showShelter") as! Bool) == true {
+            let gesture1 = UITapGestureRecognizer(target: self, action: "showServices:")
+            shelter.addGestureRecognizer(gesture1)
+        } else {
+            shelter.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showFood") as! Bool) == true {
+            let gesture2 = UITapGestureRecognizer(target: self, action: "showServices:")
+            food.addGestureRecognizer(gesture2)
+        } else {
+            food.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showClothing") as! Bool) == true {
+            let gesture3 = UITapGestureRecognizer(target: self, action: "showServices:")
+            clothing.addGestureRecognizer(gesture3)
+        } else {
+            clothing.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showShelter") as! Bool) == true {
+            let gesture4 = UITapGestureRecognizer(target: self, action: "showServices:")
+            medicalFacilities.addGestureRecognizer(gesture4)
+        } else {
+            medicalFacilities.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showSupportGroups") as! Bool) == true {
         let gesture5 = UITapGestureRecognizer(target: self, action: "showServices:")
         supportGroups.addGestureRecognizer(gesture5)
-        let gesture6 = UITapGestureRecognizer(target: self, action: "showServices:")
-        employmentAssistance.addGestureRecognizer(gesture6)
+        } else {
+            supportGroups.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showEmploymentAssistance") as! Bool) == true {
+            let gesture6 = UITapGestureRecognizer(target: self, action: "showServices:")
+            employmentAssistance.addGestureRecognizer(gesture6)
+        } else {
+            employmentAssistance.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showTransportationAssistance") as! Bool) == true {
         let gesture7 = UITapGestureRecognizer(target: self, action: "showServices:")
         transportationAssistance.addGestureRecognizer(gesture7)
-        let gesture8 = UITapGestureRecognizer(target: self, action: "showServices:")
-        showers.addGestureRecognizer(gesture8)
-        let gesture9 = UITapGestureRecognizer(target: self, action: "showServices:")
-        suicidePrevention.addGestureRecognizer(gesture9)
-        let gesture10 = UITapGestureRecognizer(target: self, action: "showServices:")
-        domesticViolenceResources.addGestureRecognizer(gesture10)
-        let gesture11 = UITapGestureRecognizer(target: self, action: "showServices:")
-        veteranServices.addGestureRecognizer(gesture11)
-        let gesture12 = UITapGestureRecognizer(target: self, action: "showServices:")
-        sexTraffickingResources.addGestureRecognizer(gesture12)
-        
+        } else {
+            transportationAssistance.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showShowers") as! Bool) == true {
+            let gesture8 = UITapGestureRecognizer(target: self, action: "showServices:")
+            showers.addGestureRecognizer(gesture8)
+        } else {
+            showers.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showSuicidePrevention") as! Bool) == true {
+            let gesture9 = UITapGestureRecognizer(target: self, action: "showServices:")
+            suicidePrevention.addGestureRecognizer(gesture9)
+        } else {
+            suicidePrevention.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showDomesticViolenceResources") as! Bool) == true {
+            let gesture10 = UITapGestureRecognizer(target: self, action: "showServices:")
+            domesticViolenceResources.addGestureRecognizer(gesture10)
+        } else {
+            domesticViolenceResources.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showVeteranServices") as! Bool) == true {
+            let gesture11 = UITapGestureRecognizer(target: self, action: "showServices:")
+            veteranServices.addGestureRecognizer(gesture11)
+        } else {
+            veteranServices.hidden = true
+        }
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showReferalServices") as! Bool) == true {
+            let gesture12 = UITapGestureRecognizer(target: self, action: "showServices:")
+            referalServices.addGestureRecognizer(gesture12)
+        } else {
+            referalServices.hidden = true
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        print("Now")
         // Add tool bar buttons
-        self.toolbarItems = [UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings"), // Settings Icon
+        var toolBarItemList = [ UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings"), // Settings Icon
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: "search"),
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "quickKill") ]
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil) ]
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
+            toolBarItemList.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "quickKill"))
+        }
+        self.toolbarItems = toolBarItemList
     }
     
 /*

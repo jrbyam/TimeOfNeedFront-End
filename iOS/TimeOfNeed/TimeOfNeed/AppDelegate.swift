@@ -117,8 +117,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Add coordinates for each based on address
         for location : NSMutableDictionary in (jsonDict["locations"] as! [NSMutableDictionary]) {
             servicesCoordinates.append(CLLocationCoordinate2D()) // Include a placeholder
-            if location["address"] != nil {
-                CLGeocoder().geocodeAddressString((location["address"] as! String), completionHandler: {(placemarks, error) -> Void in
+            if location["address_line1"] != nil {
+                let address = (location["address_line1"] as! String) + ", " + (location["address_line3"] as! String)
+                CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
                     if (error) != nil {
                         print("Error", error)
                     }
@@ -130,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         // Load data into persistant storage
         serviceData = (jsonDict["locations"] as! Array<NSMutableDictionary>)
+        print(serviceData)
         NSUserDefaults.standardUserDefaults().setObject(serviceData, forKey: "serviceData")
     }
     // getFileUrl

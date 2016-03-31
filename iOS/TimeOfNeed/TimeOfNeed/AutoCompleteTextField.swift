@@ -79,11 +79,13 @@ public class AutoCompleteTextField:UITextField {
         setupAutocompleteTable(superview!)
     }
     
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
-        commonInit()
-        setupAutocompleteTable(newSuperview!)
-    }
+// Removed by Jay Byam ////////////////////////////////////////////////////////////////////////
+//    public override func willMoveToSuperview(newSuperview: UIView?) {
+//        super.willMoveToSuperview(newSuperview)
+//        commonInit()
+//        setupAutocompleteTable(newSuperview!)
+//    }
+///////////////////////////////////////////////////////////////////////////////////////////////
     
     private func commonInit(){
         hidesWhenEmpty = true
