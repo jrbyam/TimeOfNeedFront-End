@@ -1,7 +1,10 @@
 package com.example.ton.tonandroidblank;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,22 +18,32 @@ import android.app.Fragment;
 
 public class BlankActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (getIntent().getBooleanExtra("EXIT", false))
+            android.os.Process.killProcess(android.os.Process.myPid());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blank);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
-        /*
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        boolean showButton = settings.getBoolean("quickkill_switch", true);
+        if (showButton)
+            fab.show();
+        else
+            fab.hide();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Why would you poke an envelope???", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
-        }); */
+        });
     }
 
     @Override
@@ -57,13 +70,14 @@ public class BlankActivity extends AppCompatActivity {
             {return super.onOptionsItemSelected(item);}
     }
 
-    public void onSettingsClick (View view) {
+    /*public void onSettingsClick (View view) {
         Intent getScreenNameIntent = new Intent(this, SettingsActivity.class);
         startActivity(getScreenNameIntent);
-    }
+    }*/
 
     public void onCategory1Click (View view) {
         Intent getScreenNameIntent = new Intent(this, ListActivity.class);
+        getScreenNameIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(getScreenNameIntent);
     }
 

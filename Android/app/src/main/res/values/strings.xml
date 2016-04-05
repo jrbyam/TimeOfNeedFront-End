@@ -6,13 +6,14 @@
 
     <!-- Strings related to Settings -->
     <string name="pref_description_quickkill">Enables a persistent &quot;quit&quot; button throughout the app.</string>
-    <string name="pref_title_quickkill">Enable Quick Close</string>
+    <string name="pref_title_quickkill">Quick Close</string>
 
     <string name="pref_title_location">Preferred Location</string>
     <string name="label_settings">Settings</string>
 
 
     <string name="category1">Category</string>
+    <string name="mapIcon">Map Icon</string>
 
 
 </resources>
