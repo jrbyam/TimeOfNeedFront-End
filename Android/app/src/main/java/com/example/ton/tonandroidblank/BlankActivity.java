@@ -1,5 +1,6 @@
 package com.example.ton.tonandroidblank;
 
+import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,13 +15,47 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.app.Fragment;
+import android.widget.Adapter;
+import android.widget.GridView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.Toast;
+
 
 public class BlankActivity extends AppCompatActivity {
 
+    MainMenuListAdapter myAdapter;
+    GridView mainmenuGrid;
+    String[] categories = {//getResources().getStringArray(R.array.category_titles);
+            "Shelter",
+            "Food",
+            "Clothing",
+            "Showers",
+            "Support Groups",
+            "Medical Facilities",
+            "Employ-\nment",
+            "Transport",
+            "Suicide Prevention",
+            "Domestic Violence",
+            "Veteran Services",
+            "Referral Services"
+    };
+    Integer[] imgID = {
+            R.drawable.shelter_icon,
+            R.drawable.food_icon,
+            R.drawable.clothing_icon,
+            R.drawable.showers_icon,
+            R.drawable.support_groups_icon,
+            R.drawable.medical_facilities_icon,
+            R.drawable.employment_assistance_icon,
+            R.drawable.transportation_assistance_icon,
+            R.drawable.suicide_prevention_icon,
+            R.drawable.domestic_violence_resources_icon,
+            R.drawable.veteran_services_icon,
+            R.drawable.sex_trafficking_resources_icon
+    };
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getIntent().getBooleanExtra("EXIT", false))
             android.os.Process.killProcess(android.os.Process.myPid());
@@ -30,6 +65,11 @@ public class BlankActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        myAdapter = new MainMenuListAdapter(this, categories, imgID);
+        mainmenuGrid = (GridView) findViewById(R.id.gridView);
+        mainmenuGrid.setAdapter(myAdapter);
+        //mainmenuGrid.setOnItemClickListener();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -75,13 +115,13 @@ public class BlankActivity extends AppCompatActivity {
         startActivity(getScreenNameIntent);
     }*/
 
-    public void onCategory1Click (View view) {
+    /*public void onCategory1Click (View view) {
         Intent getScreenNameIntent = new Intent(this, ListActivity.class);
         getScreenNameIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(getScreenNameIntent);
-    }
+    } */
 
-    public static class PlaceholderFragment extends Fragment {
+    /*public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
         }
@@ -93,5 +133,5 @@ public class BlankActivity extends AppCompatActivity {
             return rootView;
         }
 
-    } //end fragment
+    } //end fragment */
 } //end activity

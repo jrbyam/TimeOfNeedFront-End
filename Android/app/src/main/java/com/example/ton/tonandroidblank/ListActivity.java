@@ -38,18 +38,10 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), BlankActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("EXIT", true);
+                intent.putExtra("EXIT", true); //Open the main activity and signal it to kill the PID.
                 startActivity(intent);
             }
         });
-
-        String[] placeNames = {"Fairbanks Rescue Mission", "Interior Alaska Center for Non-violent Living",
-                                "Fairbanks Youth Advocates The Door", "FCA Street Outreach and Advocacy Program",
-                                "Stone Soup Cafe", "Immaculate Conception Church", "The Salvation Army", "FNA Elders Program",
-                                "North Star Council on Aging", "Fairbanks Food Bank"};
-
-        String[] placeDistances = {"0.2 mi", "0.5 mi", "0.7 mi", "1.2 mi", "1.2 mi", "1.3 mi", "1.5 mi",
-                                    "1.9 mi", "2.0 mi", "2.5 mi"};
 
 
     }
