@@ -106,23 +106,32 @@ class MainViewController: UIViewController  {
         self.toolbarItems = toolBarItemList
         
         // Set the main menu category buttons
-        var rowStacks = [UIStackView]()
+        var contentRowStacks = [UIStackView]()
+        var backgroundRowStacks = [UIStackView]()
         var rows = labelNames.count / 3;
         if labelNames.count % 3 != 0 { rows++; }
         var idx = 0;
         for (var i = 0; i < rows; ++i) {
             var categoryViews = [UIStackView]()
+            var categoryBackgrounds = [UIView]()
             var itemsInRow = 3;
             if labelNames.count - idx == 4 { itemsInRow--; } // If there are 4 left, put 2 in each of the last 2 rows
             for (var j = 0; j < itemsInRow; ++j) {
                 if (idx < labelNames.count) {
-                    // Add ImageView and Label to StackView to add to categoryViews
+                    let categoryBackground = UIView(frame: CGRectZero)
+                    categoryBackground.backgroundColor = UIColor.whiteColor()
+                    categoryBackground.layer.cornerRadius = 20
+                    categoryBackground.layer.borderWidth = 1
+                    categoryBackground.layer.borderColor = UIColor.blackColor().CGColor
+                    categoryBackgrounds.append(categoryBackground)
+                    // Add ImageView and Label to a StackView to add to categoryViews
                     let categoryName = UILabel(frame: CGRectZero)
                     categoryName.text = labelNames[idx]
                     categoryName.textAlignment = .Center
-                    categoryName.numberOfLines = labelNames[idx].componentsSeparatedByString(" ").count // One word per line
+                    categoryName.numberOfLines = labelNames[idx].componentsSeparatedByString(" ").count + 1 // One word per line
                     categoryName.adjustsFontSizeToFitWidth = true
-                    categoryName.minimumScaleFactor = 0.1
+                    categoryName.minimumScaleFactor = 0.01
+                    categoryName.font = categoryName.font.fontWithSize(60) // Bigger than needed so it will scale down
                     let categoryImage = UIImageView(image: UIImage(named: pictureNames[idx]))
                     categoryImage.contentMode = .ScaleAspectFit
                     let categoryStack = UIStackView(arrangedSubviews: [categoryImage, categoryName])
@@ -134,41 +143,37 @@ class MainViewController: UIViewController  {
                 }
                 idx++;
             }
-            let rowStack = UIStackView(arrangedSubviews: categoryViews)
-            rowStack.axis = .Horizontal
-            rowStack.distribution = .FillEqually
-            rowStack.alignment = .Fill
-            rowStack.spacing = 15
-            rowStacks.append(rowStack)
+            let contentRowStack = UIStackView(arrangedSubviews: categoryViews)
+            contentRowStack.axis = .Horizontal
+            contentRowStack.distribution = .FillEqually
+            contentRowStack.alignment = .Fill
+            contentRowStack.spacing = 15
+            contentRowStacks.append(contentRowStack)
+            let backgroundRowStack = UIStackView(arrangedSubviews: categoryBackgrounds)
+            backgroundRowStack.axis = .Horizontal
+            backgroundRowStack.distribution = .FillEqually
+            backgroundRowStack.alignment = .Fill
+            backgroundRowStack.spacing = 5
+            backgroundRowStacks.append(backgroundRowStack)
         }
-        var verticalStack = UIStackView(arrangedSubviews: rowStacks)
-        verticalStack.backgroundColor = UIColor.redColor()
-        verticalStack.axis = .Vertical
-        verticalStack.distribution = .FillEqually
-        verticalStack.alignment = .Fill
-        verticalStack.spacing = 15
-        verticalStack.layer.bounds = container.layer.bounds
-        verticalStack.center = CGPoint(x: container.bounds.size.width / 2, y: container.bounds.size.height / 2)
-        // Add in each category background before adding to superview
-//        var newRowStacks = [UIStackView]()
-//        for row in verticalStack.arrangedSubviews {
-//            var newCategoryViews = [UIView]()
-//            for categoryStack in (row as! UIStackView).arrangedSubviews {
-//                let categoryBackground = UIView(frame: categoryStack.bounds)
-//                categoryBackground.layer.cornerRadius = 25
-//                categoryBackground.layer.borderWidth = 2
-//                categoryBackground.addSubview(categoryStack)
-//                newCategoryViews.append(categoryBackground)
-//            }
-//            let newRowStack = UIStackView(arrangedSubviews: newCategoryViews)
-//            newRowStack.axis = .Horizontal
-//            newRowStack.distribution = .FillEqually
-//            newRowStack.alignment = .Fill
-//            newRowStack.spacing = 15
-//            newRowStacks.append(newRowStack)
-//        }
-//        verticalStack = UIStackView(arrangedSubviews: newRowStacks)
-        container.addSubview(verticalStack)
+        let backgroundVerticalStack = UIStackView(arrangedSubviews: backgroundRowStacks)
+        backgroundVerticalStack.backgroundColor = UIColor.redColor()
+        backgroundVerticalStack.axis = .Vertical
+        backgroundVerticalStack.distribution = .FillEqually
+        backgroundVerticalStack.alignment = .Fill
+        backgroundVerticalStack.spacing = 5
+        backgroundVerticalStack.layer.bounds = CGRectMake(container.layer.bounds.minX, container.layer.bounds.minY, container.layer.bounds.size.width + 10, container.layer.bounds.height + 10)
+        backgroundVerticalStack.center = CGPoint(x: container.bounds.size.width / 2, y: container.bounds.size.height / 2)
+        container.addSubview(backgroundVerticalStack)
+        let contentVerticalStack = UIStackView(arrangedSubviews: contentRowStacks)
+        contentVerticalStack.backgroundColor = UIColor.redColor()
+        contentVerticalStack.axis = .Vertical
+        contentVerticalStack.distribution = .FillEqually
+        contentVerticalStack.alignment = .Fill
+        contentVerticalStack.spacing = 15
+        contentVerticalStack.layer.bounds = container.layer.bounds
+        contentVerticalStack.center = CGPoint(x: container.bounds.size.width / 2, y: container.bounds.size.height / 2)
+        container.addSubview(contentVerticalStack)
     }
     
 /*
