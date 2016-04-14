@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import UIKit
 
 extension CLLocationCoordinate2D {
     

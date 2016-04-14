@@ -139,6 +139,8 @@ class MainViewController: UIViewController  {
                     categoryStack.distribution = .FillEqually
                     categoryStack.alignment = .Fill
                     categoryStack.spacing = 5
+                    let gestureRecognizer = UITapGestureRecognizer(target: self, action: "showServices:")
+                    categoryStack.addGestureRecognizer(gestureRecognizer)
                     categoryViews.append(categoryStack)
                 }
                 idx++;
@@ -182,6 +184,7 @@ class MainViewController: UIViewController  {
     // showServices
     // This function simply seques to the services scene 
     func showServices(sender: UITapGestureRecognizer) {
+        serviceSelected = ((sender.view as! UIStackView).arrangedSubviews.last as! UILabel).text!
         if (CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse) || startingCoordinates.latitude != 0.0 {
             performSegueWithIdentifier("services", sender: nil)
         } else {
