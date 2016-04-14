@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 }
             }
             self.updateContent()
-            // If not already granted, ask for permission to use current location
-            
         }
         return true;
     }
@@ -131,7 +129,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         // Load data into persistant storage
         serviceData = (jsonDict["locations"] as! Array<NSMutableDictionary>)
-        print(serviceData)
         NSUserDefaults.standardUserDefaults().setObject(serviceData, forKey: "serviceData")
     }
     // getFileUrl

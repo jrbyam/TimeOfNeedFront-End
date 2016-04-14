@@ -7,29 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController  {
-    
+  
+    let locationManager = CLLocationManager()
+    let labelNames : [String] = ["Shelter", "Food", "Clothing", "Medical Facilities", "Support Groups", "Employment Assistance", "Transportation Assistance", "Showers", "Suicide Prevention", "Domestic Violence Resources", "Veteran Services", "Referal Services"]
+    let pictureNames : [String] = ["shelter_icon.png", "food_icon.png", "clothing_icon.png", "medical_facilities_icon.png", "support_groups_icon.png", "employment_assistance_icon.png", "transportation_assistance_icon.png", "showers_icon.png", "suicide_prevention_icon.png", "domestic_violence_resources_icon.png", "veteran_services_icon.png", "referral_services_icon.png"]
 /*
     Outlets:
 */
-    @IBOutlet weak var shelter: UIView!
-    @IBOutlet weak var food: UIView!
-    @IBOutlet weak var clothing: UIView!
-    @IBOutlet weak var medicalFacilities: UIView!
-    @IBOutlet weak var supportGroups: UIView!
-    @IBOutlet weak var employmentAssistance: UIView!
-    @IBOutlet weak var transportationAssistance: UIView!
-    @IBOutlet weak var showers: UIView!
-    @IBOutlet weak var suicidePrevention: UIView!
-    @IBOutlet weak var domesticViolenceResources: UIView!
-    @IBOutlet weak var veteranServices: UIView!
-    @IBOutlet weak var referalServices: UIView!
-    @IBOutlet var topRow: UIStackView!
-    @IBOutlet var secondRow: UIStackView!
-    @IBOutlet var thirdRow: UIStackView!
-    @IBOutlet var bottomRow: UIStackView!
-    
+    @IBOutlet var container: UIView!
+
 /*
     Class Functions:
 */
@@ -91,31 +80,18 @@ class MainViewController: UIViewController  {
             NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showReferalServices")
         }
         
-        // Add tap gestrues to each of the service selection views (they each need their own)
-        let gesture1 = UITapGestureRecognizer(target: self, action: "showServices:")
-        shelter.addGestureRecognizer(gesture1)
-        let gesture2 = UITapGestureRecognizer(target: self, action: "showServices:")
-        food.addGestureRecognizer(gesture2)
-        let gesture3 = UITapGestureRecognizer(target: self, action: "showServices:")
-        clothing.addGestureRecognizer(gesture3)
-        let gesture4 = UITapGestureRecognizer(target: self, action: "showServices:")
-        medicalFacilities.addGestureRecognizer(gesture4)
-        let gesture5 = UITapGestureRecognizer(target: self, action: "showServices:")
-        supportGroups.addGestureRecognizer(gesture5)
-        let gesture6 = UITapGestureRecognizer(target: self, action: "showServices:")
-        employmentAssistance.addGestureRecognizer(gesture6)
-        let gesture7 = UITapGestureRecognizer(target: self, action: "showServices:")
-        transportationAssistance.addGestureRecognizer(gesture7)
-        let gesture8 = UITapGestureRecognizer(target: self, action: "showServices:")
-        showers.addGestureRecognizer(gesture8)
-        let gesture9 = UITapGestureRecognizer(target: self, action: "showServices:")
-        suicidePrevention.addGestureRecognizer(gesture9)
-        let gesture10 = UITapGestureRecognizer(target: self, action: "showServices:")
-        domesticViolenceResources.addGestureRecognizer(gesture10)
-        let gesture11 = UITapGestureRecognizer(target: self, action: "showServices:")
-        veteranServices.addGestureRecognizer(gesture11)
-        let gesture12 = UITapGestureRecognizer(target: self, action: "showServices:")
-        referalServices.addGestureRecognizer(gesture12)
+        // If not already granted, ask for permission to use current location
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        // Get starting location from defautls if it is set
+        if NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") != nil {
+            let startingCoordinatesDict = NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") as! Dictionary<String, NSNumber>
+            startingCoordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!), longitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!))
+        } else if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+            startingCoordinates = (locationManager.location?.coordinate)!
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -129,23 +105,70 @@ class MainViewController: UIViewController  {
         }
         self.toolbarItems = toolBarItemList
         
-        // Hide/Show categories according to the settings
-        shelter.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showShelter") as! Bool)
-        food.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showFood") as! Bool)
-        clothing.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showClothing") as! Bool)
-        medicalFacilities.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showMedicalFacilities") as! Bool)
-        supportGroups.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showSupportGroups") as! Bool)
-        employmentAssistance.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showEmploymentAssistance") as! Bool)
-        transportationAssistance.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showTransportationAssistance") as! Bool)
-        showers.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showShowers") as! Bool)
-        suicidePrevention.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showSuicidePrevention") as! Bool)
-        domesticViolenceResources.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showDomesticViolenceResources") as! Bool)
-        veteranServices.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showVeteranServices") as! Bool)
-        referalServices.hidden = !(NSUserDefaults.standardUserDefaults().valueForKey("showReferalServices") as! Bool)
-        topRow.hidden = shelter.hidden && food.hidden && clothing.hidden
-        secondRow.hidden = medicalFacilities.hidden && supportGroups.hidden && employmentAssistance.hidden
-        thirdRow.hidden = transportationAssistance.hidden && showers.hidden && suicidePrevention.hidden
-        bottomRow.hidden = domesticViolenceResources.hidden && veteranServices.hidden && referalServices.hidden
+        // Set the main menu category buttons
+        var rowStacks = [UIStackView]()
+        var rows = labelNames.count / 3;
+        if labelNames.count % 3 != 0 { rows++; }
+        var idx = 0;
+        for (var i = 0; i < rows; ++i) {
+            var categoryViews = [UIStackView]()
+            var itemsInRow = 3;
+            if labelNames.count - idx == 4 { itemsInRow--; } // If there are 4 left, put 2 in each of the last 2 rows
+            for (var j = 0; j < itemsInRow; ++j) {
+                if (idx < labelNames.count) {
+                    // Add ImageView and Label to StackView to add to categoryViews
+                    let categoryName = UILabel(frame: CGRectZero)
+                    categoryName.text = labelNames[idx]
+                    categoryName.textAlignment = .Center
+                    categoryName.numberOfLines = labelNames[idx].componentsSeparatedByString(" ").count // One word per line
+                    categoryName.adjustsFontSizeToFitWidth = true
+                    categoryName.minimumScaleFactor = 0.1
+                    let categoryImage = UIImageView(image: UIImage(named: pictureNames[idx]))
+                    categoryImage.contentMode = .ScaleAspectFit
+                    let categoryStack = UIStackView(arrangedSubviews: [categoryImage, categoryName])
+                    categoryStack.axis = .Vertical
+                    categoryStack.distribution = .FillEqually
+                    categoryStack.alignment = .Fill
+                    categoryStack.spacing = 5
+                    categoryViews.append(categoryStack)
+                }
+                idx++;
+            }
+            let rowStack = UIStackView(arrangedSubviews: categoryViews)
+            rowStack.axis = .Horizontal
+            rowStack.distribution = .FillEqually
+            rowStack.alignment = .Fill
+            rowStack.spacing = 15
+            rowStacks.append(rowStack)
+        }
+        var verticalStack = UIStackView(arrangedSubviews: rowStacks)
+        verticalStack.backgroundColor = UIColor.redColor()
+        verticalStack.axis = .Vertical
+        verticalStack.distribution = .FillEqually
+        verticalStack.alignment = .Fill
+        verticalStack.spacing = 15
+        verticalStack.layer.bounds = container.layer.bounds
+        verticalStack.center = CGPoint(x: container.bounds.size.width / 2, y: container.bounds.size.height / 2)
+        // Add in each category background before adding to superview
+//        var newRowStacks = [UIStackView]()
+//        for row in verticalStack.arrangedSubviews {
+//            var newCategoryViews = [UIView]()
+//            for categoryStack in (row as! UIStackView).arrangedSubviews {
+//                let categoryBackground = UIView(frame: categoryStack.bounds)
+//                categoryBackground.layer.cornerRadius = 25
+//                categoryBackground.layer.borderWidth = 2
+//                categoryBackground.addSubview(categoryStack)
+//                newCategoryViews.append(categoryBackground)
+//            }
+//            let newRowStack = UIStackView(arrangedSubviews: newCategoryViews)
+//            newRowStack.axis = .Horizontal
+//            newRowStack.distribution = .FillEqually
+//            newRowStack.alignment = .Fill
+//            newRowStack.spacing = 15
+//            newRowStacks.append(newRowStack)
+//        }
+//        verticalStack = UIStackView(arrangedSubviews: newRowStacks)
+        container.addSubview(verticalStack)
     }
     
 /*
@@ -154,7 +177,17 @@ class MainViewController: UIViewController  {
     // showServices
     // This function simply seques to the services scene 
     func showServices(sender: UITapGestureRecognizer) {
-        performSegueWithIdentifier("services", sender: nil)
+        if (CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse) || startingCoordinates.latitude != 0.0 {
+            performSegueWithIdentifier("services", sender: nil)
+        } else {
+            var dialog = UIAlertController()
+            dialog = UIAlertController(title: "Start location not set.", message: "Reference location needed.", preferredStyle: UIAlertControllerStyle.Alert)
+            dialog.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction) in })) // Cancel does nothing
+            dialog.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action: UIAlertAction) in
+                self.performSegueWithIdentifier("startLocation", sender: nil)
+            }))
+            self.presentViewController(dialog, animated: true, completion: nil)
+        }
     }
     // checkNetwork
     // This function checks the network status and engages in dialog with the user until the network situation is resolved

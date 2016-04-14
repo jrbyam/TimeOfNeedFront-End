@@ -37,8 +37,8 @@ class ServicesTableViewController: UITableViewController {
         }
         // Sort locations according to distance from set starting location
         if serviceLocations.count > 1 {
-            serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) <
-                (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) })
+            serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(startingCoordinates) <
+                (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(startingCoordinates) })
         } else if serviceLocations.count == 0 {
             // Show a sorry message
         }
@@ -58,7 +58,7 @@ class ServicesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! ServicesTableViewCell
         cell.serviceName.text = (serviceLocations[indexPath.row]["name"] as! String)
         cell.distance.text = String(format:"%.2f",
-            (servicesCoordinates[(serviceData.indexOf(serviceLocations[indexPath.row]))!]).distanceInMetersFrom(CLLocationCoordinate2DMake(64.856045, -147.736460)) * 0.000621371) // Convert to miles
+            (servicesCoordinates[(serviceData.indexOf(serviceLocations[indexPath.row]))!]).distanceInMetersFrom(startingCoordinates) * 0.000621371) // Convert to miles
         if serviceLocations[indexPath.row]["phone"] != nil {
             cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
         }

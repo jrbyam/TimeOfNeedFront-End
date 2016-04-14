@@ -28,7 +28,7 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    func switchFlipped() {
+    func switchFlipped(showQuickClose: UISwitch) {
         let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool)
         NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showQuickKill")
     }

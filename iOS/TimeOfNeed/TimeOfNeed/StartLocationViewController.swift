@@ -30,6 +30,9 @@ class StartLocationViewController: UIViewController {
             }
             if let placemark = placemarks?.first {
                 startingCoordinates = placemark.location!.coordinate
+                let storableCoordinates : Dictionary<String, NSNumber> = [ "latitude" : (startingCoordinates.latitude as NSNumber), "longitude" : (startingCoordinates.longitude as NSNumber) ]
+                NSUserDefaults.standardUserDefaults().setObject(storableCoordinates, forKey: "startingCoordinates")
+                NSUserDefaults.standardUserDefaults().setValue(self.autocompleteTextfield.text!, forKey: "startingAddress")
             }
         })
         currentStart.text = autocompleteTextfield.text!
@@ -49,6 +52,12 @@ class StartLocationViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         configureTextField()
         handleTextFieldInterfaces()
+// Added by Jay Byam ////////////////////////////////////////////////////////////
+        if NSUserDefaults.standardUserDefaults().objectForKey("startingAddress") != nil {
+            currentStart.text = NSUserDefaults.standardUserDefaults().objectForKey("startingAddress") as? String
+        }
+/////////////////////////////////////////////////////////////////////////////////
+
     }
     
     override func didReceiveMemoryWarning() {
