@@ -84,9 +84,7 @@ class ServicesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let previousIndexPath = selectedIndexPath
-        if indexPath == selectedIndexPath { // Current already selected
-            selectedIndexPath = nil
-        } else {
+        if indexPath != selectedIndexPath {
             selectedIndexPath = indexPath
             expandCurrentCell = false;
         }
