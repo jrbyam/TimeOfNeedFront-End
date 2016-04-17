@@ -33,61 +33,24 @@ class SettingsCategoryTableViewController: UITableViewController {
         cell.categoryImage.image = UIImage(named: pictureNames[indexPath.row])
         cell.categoryName.text = labelNames[indexPath.row]
         // Handle each switch
-        cell.categorySwitch.addTarget(self, action: Selector((cell.categoryName.text!).removeWhitespace() + "SwitchFlipped:"),
-            forControlEvents: UIControlEvents.ValueChanged)
-        cell.categorySwitch.on = (NSUserDefaults.standardUserDefaults().valueForKey("show" + (cell.categoryName.text!).removeWhitespace()) as! Bool)
+        cell.categorySwitch.addTarget(self, action: Selector("switchFlipped:"), forControlEvents: UIControlEvents.ValueChanged)
+        if NSUserDefaults.standardUserDefaults().valueForKey("show" + (cell.categoryName.text!).removeWhitespace()) != nil {
+            cell.categorySwitch.on = (NSUserDefaults.standardUserDefaults().valueForKey("show" + (cell.categoryName.text!).removeWhitespace()) as! Bool)
+        }
         return cell
     }
     
 /*
-    Switch Functions
+    Switch Function
 */
-    func ShelterSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showShelter") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showShelter")
-    }
-    func FoodSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showFood") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showFood")
-    }
-    func ClothingSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showClothing") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showClothing")
-    }
-    func MedicalFacilitiesSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showMedicalFacilities") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showMedicalFacilities")
-    }
-    func SupportGroupsSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showSupportGroups") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showSupportGroups")
-    }
-    func EmploymentAssistanceSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showEmploymentAssistance") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showEmploymentAssistance")
-    }
-    func TransportationAssistanceSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showTransportationAssistance") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showTransportationAssistance")
-    }
-    func ShowersSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showShowers") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showShowers")
-    }
-    func SuicidePreventionSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showSuicidePrevention") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showSuicidePrevention")
-    }
-    func DomesticViolenceResourcesSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showDomesticViolenceResources") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showDomesticViolenceResources")
-    }
-    func VeteranServicesSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showVeteranServices") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showVeteranServices")
-    }
-    func ReferalServicesSwitchFlipped(categorySwitch: UISwitch) {
-        let newValue = !(NSUserDefaults.standardUserDefaults().valueForKey("showReferalServices") as! Bool)
-        NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "showReferalServices")
+    func switchFlipped(categorySwitch: UISwitch) {
+        let categoryName = (categorySwitch.superview?.superview as! SettingsCategoryTableViewCell).categoryName.text!
+        if NSUserDefaults.standardUserDefaults().valueForKey("show" + categoryName.removeWhitespace()) == nil {
+            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "show" + categoryName.removeWhitespace()) // Default to true
+        }
+        
+        // Toggle the value
+        let currentValue = (NSUserDefaults.standardUserDefaults().valueForKey("show" + categoryName.removeWhitespace()) as! Bool)
+        NSUserDefaults.standardUserDefaults().setValue(!currentValue, forKey: "show" + categoryName.removeWhitespace())
     }
 }

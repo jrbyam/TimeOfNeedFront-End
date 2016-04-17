@@ -43,42 +43,6 @@ class MainViewController: UIViewController  {
         if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") == nil) {
             NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showQuickKill")
         }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showShelter") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showShelter")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showFood") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showFood")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showClothing") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showClothing")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showMedicalFacilities") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showMedicalFacilities")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showSupportGroups") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showSupportGroups")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showEmploymentAssistance") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showEmploymentAssistance")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showTransportationAssistance") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showTransportationAssistance")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showShowers") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showShowers")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showSuicidePrevention") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showSuicidePrevention")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showDomesticViolenceResources") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showDomesticViolenceResources")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showVeteranServices") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showVeteranServices")
-        }
-        if (NSUserDefaults.standardUserDefaults().valueForKey("showReferalServices") == nil) {
-            NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showReferalServices")
-        }
         
         // If not already granted, ask for permission to use current location
         if CLLocationManager.authorizationStatus() == .NotDetermined {
@@ -106,18 +70,31 @@ class MainViewController: UIViewController  {
         self.toolbarItems = toolBarItemList
         
         // Set the main menu category buttons
+        container.subviews.forEach({ $0.removeFromSuperview() }) // Remove any subviews that were added before
+        var categoriesToShow = [String]()
+        var picturesToShow = [String]()
+        var idx = 0
+        for labelName in labelNames {
+            if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) != nil {
+                if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) as! Bool {
+                    categoriesToShow.append(labelName)
+                    picturesToShow.append(pictureNames[idx])
+                }
+            }
+            idx++
+        }
         var contentRowStacks = [UIStackView]()
         var backgroundRowStacks = [UIStackView]()
-        var rows = labelNames.count / 3;
-        if labelNames.count % 3 != 0 { rows++; }
-        var idx = 0;
+        var rows = categoriesToShow.count / 3;
+        if categoriesToShow.count % 3 != 0 { rows++; }
+        idx = 0
         for (var i = 0; i < rows; ++i) {
             var categoryViews = [UIStackView]()
             var categoryBackgrounds = [UIView]()
             var itemsInRow = 3;
-            if labelNames.count - idx == 4 { itemsInRow--; } // If there are 4 left, put 2 in each of the last 2 rows
+            if categoriesToShow.count - idx == 4 { itemsInRow--; } // If there are 4 left, put 2 in each of the last 2 rows
             for (var j = 0; j < itemsInRow; ++j) {
-                if (idx < labelNames.count) {
+                if (idx < categoriesToShow.count) {
                     let categoryBackground = UIView(frame: CGRectZero)
                     categoryBackground.backgroundColor = UIColor.whiteColor()
                     categoryBackground.layer.cornerRadius = 20
@@ -126,13 +103,13 @@ class MainViewController: UIViewController  {
                     categoryBackgrounds.append(categoryBackground)
                     // Add ImageView and Label to a StackView to add to categoryViews
                     let categoryName = UILabel(frame: CGRectZero)
-                    categoryName.text = labelNames[idx]
+                    categoryName.text = categoriesToShow[idx]
                     categoryName.textAlignment = .Center
-                    categoryName.numberOfLines = labelNames[idx].componentsSeparatedByString(" ").count + 1 // One word per line
+                    categoryName.numberOfLines = categoriesToShow[idx].componentsSeparatedByString(" ").count + 1 // One word per line
                     categoryName.adjustsFontSizeToFitWidth = true
                     categoryName.minimumScaleFactor = 0.01
                     categoryName.font = categoryName.font.fontWithSize(60) // Bigger than needed so it will scale down
-                    let categoryImage = UIImageView(image: UIImage(named: pictureNames[idx]))
+                    let categoryImage = UIImageView(image: UIImage(named: picturesToShow[idx]))
                     categoryImage.contentMode = .ScaleAspectFit
                     let categoryStack = UIStackView(arrangedSubviews: [categoryImage, categoryName])
                     categoryStack.axis = .Vertical
