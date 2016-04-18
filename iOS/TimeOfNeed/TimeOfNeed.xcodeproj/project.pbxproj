@@ -11,7 +11,6 @@
 		3B0D3B151CA0AD9600B2ED40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */; };
 		3B0D3B171CA7557D00B2ED40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D3B161CA7557C00B2ED40 /* Extensions.swift */; };
 		3B4491351CB2EA58009CD654 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4491341CB2EA58009CD654 /* SearchViewController.swift */; };
-		3B4491371CB2FB56009CD654 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4491361CB2FB56009CD654 /* SearchTableViewCell.swift */; };
 		3B620C5A1CA07A940099FA51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C591CA07A940099FA51 /* MainViewController.swift */; };
 		3B620C611CA08BF80099FA51 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B620C601CA08BF80099FA51 /* Globals.swift */; };
 		3B889F6B1CA9FCF30069003A /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B889F6A1CA9FCF30069003A /* AutoCompleteTextField.swift */; };
@@ -27,6 +26,7 @@
 		3BA57F941C6449550017F8D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA57F921C6449550017F8D4 /* LaunchScreen.storyboard */; };
 		3BA57F9F1C6449550017F8D4 /* TimeOfNeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA57F9E1C6449550017F8D4 /* TimeOfNeedTests.swift */; };
 		3BA57FAA1C6449560017F8D4 /* TimeOfNeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA57FA91C6449560017F8D4 /* TimeOfNeedUITests.swift */; };
+		3BE532291CC458B800D4E15A /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE532281CC458B800D4E15A /* SearchViewCell.swift */; };
 		3BEF187D1C7311BB00301D15 /* ServicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF187C1C7311BB00301D15 /* ServicesTableViewCell.swift */; };
 		3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF187E1C731A1B00301D15 /* ServicesTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -55,7 +55,6 @@
 		3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3B0D3B161CA7557C00B2ED40 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3B4491341CB2EA58009CD654 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3B4491361CB2FB56009CD654 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTableViewCell.swift; path = ../SearchTableViewCell.swift; sourceTree = "<group>"; };
 		3B620C591CA07A940099FA51 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3B620C601CA08BF80099FA51 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		3B889F6A1CA9FCF30069003A /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 		3BA57FA51C6449560017F8D4 /* TimeOfNeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeOfNeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BA57FA91C6449560017F8D4 /* TimeOfNeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOfNeedUITests.swift; sourceTree = "<group>"; };
 		3BA57FAB1C6449560017F8D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BE532281CC458B800D4E15A /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		3BEF187C1C7311BB00301D15 /* ServicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesTableViewCell.swift; sourceTree = "<group>"; };
 		3BEF187E1C731A1B00301D15 /* ServicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServicesTableViewController.swift; path = ../ServicesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,8 +141,8 @@
 				3B889F6C1CA9FD660069003A /* MKMapViewExtension.swift */,
 				3B0D3B101CA096C100B2ED40 /* Reachability.h */,
 				3B0D3B121CA096D500B2ED40 /* Reachability.m */,
-				3B4491361CB2FB56009CD654 /* SearchTableViewCell.swift */,
 				3B4491341CB2EA58009CD654 /* SearchViewController.swift */,
+				3BE532281CC458B800D4E15A /* SearchViewCell.swift */,
 				3B8B101F1C84EE4A00B6BC51 /* SettingsTableViewController.swift */,
 				3B8B101D1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift */,
 				3B8B10211C86745900B6BC51 /* SettingsCategoryTableViewController.swift */,
@@ -306,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BE532291CC458B800D4E15A /* SearchViewCell.swift in Sources */,
 				3B8B101E1C84EB8800B6BC51 /* SettingsCategoryTableViewCell.swift in Sources */,
 				3BEF187D1C7311BB00301D15 /* ServicesTableViewCell.swift in Sources */,
 				3B889F6D1CA9FD660069003A /* MKMapViewExtension.swift in Sources */,
@@ -317,7 +318,6 @@
 				3B620C5A1CA07A940099FA51 /* MainViewController.swift in Sources */,
 				3BA57F881C6449550017F8D4 /* AppDelegate.swift in Sources */,
 				3B4491351CB2EA58009CD654 /* SearchViewController.swift in Sources */,
-				3B4491371CB2FB56009CD654 /* SearchTableViewCell.swift in Sources */,
 				3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */,
 				3B620C611CA08BF80099FA51 /* Globals.swift in Sources */,
 				3B889F6B1CA9FCF30069003A /* AutoCompleteTextField.swift in Sources */,

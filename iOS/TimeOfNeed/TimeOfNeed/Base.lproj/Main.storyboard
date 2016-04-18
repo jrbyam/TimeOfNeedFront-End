@@ -471,28 +471,43 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResult" id="Rvy-cC-c5b" customClass="SearchTableViewCell" customModule="TimeOfNeed" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResult" id="Rvy-cC-c5b" customClass="SearchViewCell" customModule="TimeOfNeed" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rvy-cC-c5b" id="xin-O2-kdy">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="NZS-MO-LLf">
-                                                    <rect key="frame" x="18" y="8" width="574" height="23"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="VHC-DG-8YK">
+                                                    <rect key="frame" x="18" y="8" width="574" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWb-gm-eEf">
+                                                    <rect key="frame" x="18" y="41" width="564" height="16"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NZS-MO-LLf" firstAttribute="leading" secondItem="xin-O2-kdy" secondAttribute="leadingMargin" constant="10" id="IMd-50-Be5"/>
-                                                <constraint firstItem="NZS-MO-LLf" firstAttribute="top" secondItem="xin-O2-kdy" secondAttribute="topMargin" id="agG-Bb-sJO"/>
-                                                <constraint firstItem="NZS-MO-LLf" firstAttribute="trailing" secondItem="xin-O2-kdy" secondAttribute="trailingMargin" id="y4w-sW-DKO"/>
+                                                <constraint firstItem="VHC-DG-8YK" firstAttribute="leading" secondItem="xin-O2-kdy" secondAttribute="leadingMargin" constant="10" id="3HG-fd-vnc"/>
+                                                <constraint firstItem="SWb-gm-eEf" firstAttribute="width" secondItem="VHC-DG-8YK" secondAttribute="width" id="6Bt-VI-8rz"/>
+                                                <constraint firstItem="SWb-gm-eEf" firstAttribute="trailing" secondItem="xin-O2-kdy" secondAttribute="trailingMargin" constant="-10" id="gFR-U5-Z1d"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="SWb-gm-eEf" secondAttribute="bottom" constant="9" id="qaw-5P-qOC"/>
+                                                <constraint firstItem="VHC-DG-8YK" firstAttribute="top" secondItem="xin-O2-kdy" secondAttribute="topMargin" id="sCE-FM-vQL"/>
+                                                <constraint firstItem="SWb-gm-eEf" firstAttribute="top" secondItem="VHC-DG-8YK" secondAttribute="bottom" constant="12" id="toc-94-Zvc"/>
+                                                <constraint firstItem="VHC-DG-8YK" firstAttribute="trailing" secondItem="xin-O2-kdy" secondAttribute="trailingMargin" id="x9m-9J-ds7"/>
+                                                <constraint firstItem="SWb-gm-eEf" firstAttribute="leading" secondItem="xin-O2-kdy" secondAttribute="leadingMargin" constant="10" id="xC3-Tb-EWj"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="6Bt-VI-8rz"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="locationName" destination="NZS-MO-LLf" id="g4i-5c-zIa"/>
+                                            <outlet property="locationName" destination="VHC-DG-8YK" id="wUb-ul-wq6"/>
+                                            <outlet property="servicesView" destination="SWb-gm-eEf" id="MCo-rJ-dsU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -515,20 +530,10 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="BlM-WE-6sj" id="bYX-V0-iLi"/>
-                        <outlet property="searchDisplayController" destination="V9P-hq-E8r" id="R8O-L8-DQu"/>
                         <outlet property="searchResults" destination="TVq-bl-4ln" id="Lew-jZ-4Ql"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yjt-5M-Hpq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="V9P-hq-E8r">
-                    <connections>
-                        <outlet property="delegate" destination="QNT-aW-PTx" id="Kby-2C-WNK"/>
-                        <outlet property="searchBar" destination="BlM-WE-6sj" id="kVt-8O-ifa"/>
-                        <outlet property="searchContentsController" destination="QNT-aW-PTx" id="atR-GN-ABz"/>
-                        <outlet property="searchResultsDataSource" destination="QNT-aW-PTx" id="PY2-xW-Qht"/>
-                        <outlet property="searchResultsDelegate" destination="QNT-aW-PTx" id="XG2-QV-x4b"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1181" y="-1468"/>
         </scene>

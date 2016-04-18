@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchResultsUpdating {
     
     @IBOutlet var searchResults: UITableView!
     @IBOutlet var searchBar: UISearchBar!
+    let searchController = UISearchController(searchResultsController: nil)
     var active = false
     var serviceLocations = Array<String>()
     var filteredLocations : [String] = []
@@ -20,23 +21,34 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         for location in serviceData {
             serviceLocations.append(location["name"] as! String)
         }
+        reformatTable()
         filteredLocations = serviceLocations
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        searchResults.rowHeight = 75
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        active = true;
+        active = true
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        active = false;
+        active = false
+        reformatTable()
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        active = false;
+        active = false
+        reformatTable()
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        active = false;
+        active = false
+        reformatTable()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -46,7 +58,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             return range.location != NSNotFound
         })
         active = filteredLocations.count != 0
-        searchResults.reloadData()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.searchResults.reloadData()
+        }
+        searchResults.rowHeight = 75
     }
 
     
@@ -62,59 +77,57 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = searchResults.dequeueReusableCellWithIdentifier("searchResult")! as! SearchTableViewCell;
+        let cell = searchResults.dequeueReusableCellWithIdentifier("searchResult")! as! SearchViewCell
 
+        let locations = active ? filteredLocations : serviceLocations
+        cell.locationName.text = locations[indexPath.row]
         
-        if active {
-            cell.locationName.text = filteredLocations[indexPath.row]
-            //serviceDict = serviceData[serviceLocations.indexOf(filteredLocations[indexPath.row])!]
-        } else {
-            cell.locationName.text = serviceLocations[indexPath.row];
-            //serviceDict = serviceData[indexPath.row]
+        var serviceNames = [UILabel]()
+        var serviceBackgrounds = [UIView]()
+        for service in serviceData[serviceLocations.indexOf(locations[indexPath.row])!]["services"] as! [String] {
+            let serviceBackground = UIView(frame: CGRectZero)
+            serviceBackground.backgroundColor = UIColor.whiteColor()
+            serviceBackground.layer.cornerRadius = 10
+            serviceBackground.layer.borderWidth = 1
+            serviceBackground.layer.borderColor = UIColor.blackColor().CGColor
+            serviceBackgrounds.append(serviceBackground)
+            let serviceName = UILabel(frame: CGRectZero)
+            serviceName.text = service
+            serviceName.textAlignment = .Center
+            serviceName.numberOfLines = service.componentsSeparatedByString(" ").count
+            serviceName.adjustsFontSizeToFitWidth = true
+            serviceName.minimumScaleFactor = 0.01
+            serviceName.font = serviceName.font.fontWithSize(16) // Bigger than needed so it will scale down
+            serviceNames.append(serviceName)
         }
         
-//        for service in (serviceDict["services"] as! [String]) {
-//            print (service)
-//            if service == "Shelter" {
-//                shelter = true
-//            } else if service == "Food" {
-//                food = true
-//            } else if service == "Clothing" {
-//                clothing = true
-//            } else if service == "Medical Facilities" {
-//                medicalFacilities = true
-//            } else if service == "Support Groups" {
-//                supportGroups = true
-//            } else if service == "Employemnt Assistance" {
-//                employmentAssistance = true
-//            } else if service == "Transportation Assistance" {
-//                transportationAssistance = true
-//            } else if service == "Showers" {
-//                showers = true
-//            } else if service == "Suicide Prevention" {
-//                suicidePrevention = true
-//            } else if service == "Domestic Violence Resources" {
-//                domesticViolenceResources = true
-//            } else if service == "Veteran Sercives" {
-//                veteranServices = true
-//            } else if service == "Referral Services" {
-//                referralServices = true
-//            }
-//        }
-//        
-//        cell.shelter.hidden = !shelter
-//        cell.food.hidden = !food
-//        cell.clothing.hidden = !clothing
-//        cell.medicalFacilities.hidden = !medicalFacilities
-//        cell.supportGroups.hidden = !supportGroups
-//        cell.employmentAssistance.hidden = !employmentAssistance
-//        cell.transportationAssistance.hidden = !transportationAssistance
-//        cell.showers.hidden = !showers
-//        cell.suicidePrevention.hidden = !suicidePrevention
-//        cell.domesticViolenceResources.hidden = !domesticViolenceResources
-//        cell.veteranServices.hidden = !veteranServices
-//        cell.referralServices.hidden = !referralServices
+        cell.servicesView.subviews.forEach({ $0.removeFromSuperview() }) // Remove old subviews before adding new ones
+        
+        let serviceBackgroundsStack = UIStackView(arrangedSubviews: serviceBackgrounds)
+        serviceBackgroundsStack.axis = .Horizontal
+        serviceBackgroundsStack.distribution = .FillEqually
+        serviceBackgroundsStack.alignment = .Fill
+        serviceBackgroundsStack.spacing = 5
+        serviceBackgroundsStack.layer.bounds = CGRectMake(
+            cell.servicesView.layer.bounds.minX, cell.servicesView.layer.bounds.minY, cell.servicesView.layer.bounds.size.width + 10, cell.servicesView.layer.bounds.height + 10
+        )
+        serviceBackgroundsStack.center = CGPoint(x: cell.servicesView.bounds.size.width / 2, y: cell.servicesView.bounds.size.height / 2)
+        cell.servicesView.addSubview(serviceBackgroundsStack)
 
+        let servicesStack = UIStackView(arrangedSubviews: serviceNames)
+        servicesStack.axis = .Horizontal
+        servicesStack.distribution = .FillEqually
+        servicesStack.alignment = .Fill
+        servicesStack.spacing = 15
+        servicesStack.layer.bounds = cell.servicesView.layer.bounds
+        servicesStack.center = CGPoint(x: cell.servicesView.bounds.size.width / 2, y: cell.servicesView.bounds.size.height / 2)
+        cell.servicesView.addSubview(servicesStack)
         return cell;
+    }
+    
+    func reformatTable() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.searchResults.reloadData()
+        }
     }
 }
