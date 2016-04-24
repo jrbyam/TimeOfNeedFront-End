@@ -25,6 +25,8 @@ class SettingsTableViewController: UITableViewController {
             performSegueWithIdentifier("address", sender: nil)
         } else if (indexPath.row == 2) {
             performSegueWithIdentifier("categories", sender: nil)
+        } else if (indexPath.row == 3) {
+            performSegueWithIdentifier("contact", sender: nil)
         }
     }
     

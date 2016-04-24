@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0A8EDB1CCC453C00227191 /* ContactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0A8EDA1CCC453C00227191 /* ContactController.swift */; };
 		3B0D3B131CA096D500B2ED40 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D3B121CA096D500B2ED40 /* Reachability.m */; };
 		3B0D3B151CA0AD9600B2ED40 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D3B141CA0AD9600B2ED40 /* MapKit.framework */; };
 		3B0D3B171CA7557D00B2ED40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D3B161CA7557C00B2ED40 /* Extensions.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B0A8EDA1CCC453C00227191 /* ContactController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactController.swift; sourceTree = "<group>"; };
 		3B0D3B101CA096C100B2ED40 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3B0D3B111CA096D400B2ED40 /* TimeOfNeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeOfNeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B0D3B121CA096D500B2ED40 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				3BA57F871C6449550017F8D4 /* AppDelegate.swift */,
 				3B889F6A1CA9FCF30069003A /* AutoCompleteTextField.swift */,
+				3B0A8EDA1CCC453C00227191 /* ContactController.swift */,
 				3B0D3B161CA7557C00B2ED40 /* Extensions.swift */,
 				3B620C601CA08BF80099FA51 /* Globals.swift */,
 				3B889F6E1CA9FD8D0069003A /* Location.swift */,
@@ -319,6 +322,7 @@
 				3BA57F881C6449550017F8D4 /* AppDelegate.swift in Sources */,
 				3B4491351CB2EA58009CD654 /* SearchViewController.swift in Sources */,
 				3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */,
+				3B0A8EDB1CCC453C00227191 /* ContactController.swift in Sources */,
 				3B620C611CA08BF80099FA51 /* Globals.swift in Sources */,
 				3B889F6B1CA9FCF30069003A /* AutoCompleteTextField.swift in Sources */,
 				3B0D3B171CA7557D00B2ED40 /* Extensions.swift in Sources */,

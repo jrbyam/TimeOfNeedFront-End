@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchResultsUpdating {
     
@@ -98,6 +99,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             serviceName.adjustsFontSizeToFitWidth = true
             serviceName.minimumScaleFactor = 0.01
             serviceName.font = serviceName.font.fontWithSize(16) // Bigger than needed so it will scale down
+            let gestureRecognizer = UITapGestureRecognizer(target: serviceName, action: "showServiceLocation:")
+            serviceName.addGestureRecognizer(gestureRecognizer)
             serviceNames.append(serviceName)
         }
         
@@ -129,5 +132,23 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         dispatch_async(dispatch_get_main_queue()) {
             self.searchResults.reloadData()
         }
+    }
+    
+    func showServiceLocations(sender: UITapGestureRecognizer) {
+        
+        serviceSelected = (sender.view as! UILabel).text!
+        // Handle opening to specific location
+        if (CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse) || startingCoordinates.latitude != 0.0 {
+            performSegueWithIdentifier("services", sender: nil)
+        } else {
+            var dialog = UIAlertController()
+            dialog = UIAlertController(title: "Start location not set.", message: "Reference location needed.", preferredStyle: UIAlertControllerStyle.Alert)
+            dialog.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action: UIAlertAction) in })) // Cancel does nothing
+            dialog.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action: UIAlertAction) in
+                self.performSegueWithIdentifier("startLocation", sender: nil)
+            }))
+            self.presentViewController(dialog, animated: true, completion: nil)
+        }
+
     }
 }
