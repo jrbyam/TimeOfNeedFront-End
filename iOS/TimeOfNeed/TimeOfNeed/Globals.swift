@@ -22,6 +22,8 @@ var connectedToServer = true
 
 var displayOldData = false
 
+var locationToShow = ""
+
 var netStatus = reachability.currentReachabilityStatus()
 
 var networkConnected = true

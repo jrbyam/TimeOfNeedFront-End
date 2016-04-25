@@ -37,6 +37,7 @@ class SettingsCategoryTableViewController: UITableViewController {
         if NSUserDefaults.standardUserDefaults().valueForKey("show" + (cell.categoryName.text!).removeWhitespace()) != nil {
             cell.categorySwitch.on = (NSUserDefaults.standardUserDefaults().valueForKey("show" + (cell.categoryName.text!).removeWhitespace()) as! Bool)
         }
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
     }
     

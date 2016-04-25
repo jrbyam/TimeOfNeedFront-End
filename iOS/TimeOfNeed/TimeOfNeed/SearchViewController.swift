@@ -79,6 +79,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = searchResults.dequeueReusableCellWithIdentifier("searchResult")! as! SearchViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
 
         let locations = active ? filteredLocations : serviceLocations
         cell.locationName.text = locations[indexPath.row]
@@ -93,13 +94,14 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             serviceBackground.layer.borderColor = UIColor.blackColor().CGColor
             serviceBackgrounds.append(serviceBackground)
             let serviceName = UILabel(frame: CGRectZero)
+            serviceName.userInteractionEnabled = true
             serviceName.text = service
             serviceName.textAlignment = .Center
             serviceName.numberOfLines = service.componentsSeparatedByString(" ").count
             serviceName.adjustsFontSizeToFitWidth = true
             serviceName.minimumScaleFactor = 0.01
             serviceName.font = serviceName.font.fontWithSize(16) // Bigger than needed so it will scale down
-            let gestureRecognizer = UITapGestureRecognizer(target: serviceName, action: "showServiceLocation:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "showServiceLocation:")
             serviceName.addGestureRecognizer(gestureRecognizer)
             serviceNames.append(serviceName)
         }
@@ -134,9 +136,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func showServiceLocations(sender: UITapGestureRecognizer) {
-        
+    func showServiceLocation(sender: UITapGestureRecognizer) {
         serviceSelected = (sender.view as! UILabel).text!
+        locationToShow = (sender.view?.superview?.superview?.superview?.superview as! SearchViewCell).locationName.text!
         // Handle opening to specific location
         if (CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse) || startingCoordinates.latitude != 0.0 {
             performSegueWithIdentifier("services", sender: nil)

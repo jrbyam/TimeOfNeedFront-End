@@ -43,6 +43,21 @@ class ServicesTableViewController: UITableViewController {
             // Show a sorry message
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        if (locationToShow != "") {
+            var idx = 0;
+            for location in serviceLocations {
+                if (location["name"] as! String) == locationToShow { break }
+                idx++
+            }
+            print(idx)
+            let scrollPath = NSIndexPath(forItem: idx, inSection: 0)
+            self.tableView(self.tableView, didSelectRowAtIndexPath: scrollPath)
+            self.tableView.scrollToRowAtIndexPath(scrollPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            locationToShow = ""
+        }
+    }
 /*
     TableView Functions
 */
