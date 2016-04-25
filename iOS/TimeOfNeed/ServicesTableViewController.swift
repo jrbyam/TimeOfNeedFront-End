@@ -62,7 +62,15 @@ class ServicesTableViewController: UITableViewController {
         if serviceLocations[indexPath.row]["phone"] != nil {
             cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
         }
-//        cell.hoursTimes.text = serviceLocations[indexPath.row]["hours"]
+        if serviceLocations[indexPath.row]["address_line1"] != nil {
+            cell.address.text! = (serviceLocations[indexPath.row]["address_line1"] as! String)
+            if serviceLocations[indexPath.row]["address_line2"] != nil {
+                cell.address.text! += ", " + (serviceLocations[indexPath.row]["address_line2"] as! String)
+            }
+            if serviceLocations[indexPath.row]["address_line3"] != nil {
+                cell.address.text! += ", " + (serviceLocations[indexPath.row]["address_line3"] as! String)
+            }
+        }
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("showExtraInfo:"))
         cell.moreArrow.userInteractionEnabled = true
         cell.moreArrow.addGestureRecognizer(tapGestureRecognizer)

@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 */
     // updateContent
     func updateContent() {
-        let filePath = "http://ton.herpaderpin.tk/api/getlocations"
+        let filePath = "http://ton.cs.uaf.edu/api/getlocations"
         loadDataFromJson(filePath)
 //        if NSUserDefaults.standardUserDefaults().objectForKey("serviceData") != nil { // There has been data previously stored.
 //            let currentVersion = NSUserDefaults.standardUserDefaults().objectForKey("currentVersion") as! String
