@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10109" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hfb-RA-YRg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ORN-km-JKM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -26,6 +26,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpD-is-KcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-411" y="-788"/>
+        </scene>
+        <!--Tutorial Page View Controller-->
+        <scene sceneID="mAD-2t-DsO">
+            <objects>
+                <pageViewController storyboardIdentifier="TutorialPageViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ORN-km-JKM" customClass="TutorialPageViewController" customModule="TimeOfNeed" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sxI-h7-iEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-411" y="-87"/>
+        </scene>
+        <!--Tutorial Content View Controller-->
+        <scene sceneID="TAB-r9-Bgr">
+            <objects>
+                <viewController storyboardIdentifier="TutorialContentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Whq-kt-Iml" customClass="TutorialContentViewController" customModule="TimeOfNeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EzY-3s-LKQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="OZp-y9-KaE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bWt-c4-lta">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-XL-kEn">
+                                <rect key="frame" x="70" y="70" width="460" height="480"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMd-Do-DIW">
+                                <rect key="frame" x="269" y="570" width="62" height="30"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="continueToApp:" destination="Whq-kt-Iml" eventType="touchUpInside" id="8lk-rO-EnI"/>
+                                    <segue destination="hfb-RA-YRg" kind="show" identifier="backToMain" id="Onc-4c-RXX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WVd-XL-kEn" firstAttribute="leading" secondItem="bWt-c4-lta" secondAttribute="leadingMargin" constant="50" id="8lb-51-sJA"/>
+                            <constraint firstItem="WVd-XL-kEn" firstAttribute="top" secondItem="EzY-3s-LKQ" secondAttribute="bottom" constant="50" id="Dsb-WK-Yn2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WVd-XL-kEn" secondAttribute="trailing" constant="50" id="Ixu-cD-5qh"/>
+                            <constraint firstItem="OZp-y9-KaE" firstAttribute="top" secondItem="WVd-XL-kEn" secondAttribute="bottom" constant="50" id="eD5-0z-kfS"/>
+                            <constraint firstItem="UMd-Do-DIW" firstAttribute="centerX" secondItem="WVd-XL-kEn" secondAttribute="centerX" id="qeR-Zm-9mo"/>
+                            <constraint firstItem="UMd-Do-DIW" firstAttribute="bottom" secondItem="OZp-y9-KaE" secondAttribute="top" id="yUR-B0-N7L"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="continueToApp" destination="UMd-Do-DIW" id="L5U-Ag-NLQ"/>
+                        <outlet property="tutorialImage" destination="WVd-XL-kEn" id="b0v-FR-x5h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iyo-Co-dgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-411" y="590"/>
         </scene>
         <!--Settings-->
         <scene sceneID="dhv-ye-NXz">
@@ -399,7 +450,7 @@
                                     <constraint firstAttribute="height" constant="115" id="0cV-Yc-uGQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGh-qQ-E7J">
@@ -662,7 +713,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="VHC-DG-8YK">
                                                     <rect key="frame" x="18" y="8" width="574" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWb-gm-eEf">
@@ -802,7 +853,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap for more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i47-6J-4DR">
                                                     <rect key="frame" x="8" y="155" width="98" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJL-68-Yrh">
