@@ -125,7 +125,13 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         cell.moreArrow.addGestureRecognizer(tapGestureRecognizer)
         cell.serviceDescription.text = "This is the cool description. It's descriptive. It describes this service. If you'd like to know more, check out our website below."
         if serviceLocations[indexPath.row]["website"] != nil {
+            cell.website.hidden = false
             cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
+            cell.website.userInteractionEnabled = true
+            cell.website.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openWebsite:"))
+        } else {
+            cell.website.hidden = true
+            cell.website.userInteractionEnabled = false
         }
         return cell
     }
@@ -190,5 +196,12 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         let address = (sender.view!.superview?.superview?.superview as! ServicesTableViewCell).address.text?.replace(" ", replacement: "+")
         let targetURL = NSURL(string: "http://maps.apple.com/?q=" + address!)!
         UIApplication.sharedApplication().openURL(targetURL)
+    }
+    
+    func openWebsite(sender: UITapGestureRecognizer) {
+        var urlText = (sender.view as! UILabel).text!
+        if (urlText as NSString).substringToIndex(4) != "http" { urlText = "http://" + urlText }
+        let urlToLoad = NSURL(string: urlText)
+        UIApplication.sharedApplication().openURL(urlToLoad!)
     }
 }
