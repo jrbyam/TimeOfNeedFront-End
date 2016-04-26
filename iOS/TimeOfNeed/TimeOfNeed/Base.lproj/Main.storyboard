@@ -795,6 +795,16 @@
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="K3B-eV-WmK">
                                                     <rect key="frame" x="8" y="10" width="275" height="166"/>
                                                 </mapView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75z-ti-xMw">
+                                                    <rect key="frame" x="8" y="155" width="98" height="21"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap for more" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i47-6J-4DR">
+                                                    <rect key="frame" x="8" y="155" width="98" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -802,13 +812,19 @@
                                                 <constraint firstAttribute="height" constant="186" id="3ke-rG-3zp"/>
                                                 <constraint firstItem="K3B-eV-WmK" firstAttribute="leading" secondItem="NbL-dO-5wX" secondAttribute="leadingMargin" id="84s-2H-EJd"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ve5-W2-xeF" secondAttribute="bottom" constant="10" id="9nf-nN-Obf"/>
+                                                <constraint firstItem="75z-ti-xMw" firstAttribute="leading" secondItem="K3B-eV-WmK" secondAttribute="leading" id="DLX-CC-32B"/>
                                                 <constraint firstItem="lZr-fc-ST0" firstAttribute="width" secondItem="K3B-eV-WmK" secondAttribute="width" id="LBy-Sr-zEn"/>
                                                 <constraint firstItem="Ve5-W2-xeF" firstAttribute="top" secondItem="lZr-fc-ST0" secondAttribute="bottom" constant="6" id="MZj-0H-NvV"/>
                                                 <constraint firstItem="K3B-eV-WmK" firstAttribute="centerY" secondItem="NbL-dO-5wX" secondAttribute="centerY" id="SC7-P1-KPO"/>
+                                                <constraint firstItem="i47-6J-4DR" firstAttribute="leading" secondItem="K3B-eV-WmK" secondAttribute="leading" id="UdD-GE-Nno"/>
                                                 <constraint firstItem="K3B-eV-WmK" firstAttribute="top" secondItem="lZr-fc-ST0" secondAttribute="top" id="YEF-1h-zt3"/>
                                                 <constraint firstItem="lZr-fc-ST0" firstAttribute="top" secondItem="NbL-dO-5wX" secondAttribute="top" constant="10" id="cIx-gu-BUz"/>
+                                                <constraint firstItem="i47-6J-4DR" firstAttribute="width" secondItem="75z-ti-xMw" secondAttribute="width" id="dLr-xR-6ao"/>
+                                                <constraint firstItem="75z-ti-xMw" firstAttribute="bottom" secondItem="K3B-eV-WmK" secondAttribute="bottom" id="diD-ve-IXA"/>
                                                 <constraint firstAttribute="trailing" secondItem="lZr-fc-ST0" secondAttribute="trailing" constant="10" id="e8a-F0-8f1"/>
                                                 <constraint firstAttribute="bottom" secondItem="lZr-fc-ST0" secondAttribute="bottom" constant="10" id="had-hI-Rkf"/>
+                                                <constraint firstItem="i47-6J-4DR" firstAttribute="bottom" secondItem="K3B-eV-WmK" secondAttribute="bottom" id="iQ8-5U-eZG"/>
+                                                <constraint firstItem="i47-6J-4DR" firstAttribute="height" secondItem="75z-ti-xMw" secondAttribute="height" id="lrn-hz-0C0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ve5-W2-xeF" secondAttribute="trailing" constant="5" id="riZ-9J-7sJ"/>
                                                 <constraint firstItem="lZr-fc-ST0" firstAttribute="leading" secondItem="K3B-eV-WmK" secondAttribute="trailing" constant="17" id="u2J-jQ-M3E"/>
                                             </constraints>
