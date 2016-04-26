@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ServicesTableViewController: UITableViewController {
+class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
     
 /*
     Class Constants
@@ -105,8 +105,17 @@ class ServicesTableViewController: UITableViewController {
                 cell.address.text! += ", " + (serviceLocations[indexPath.row]["address_line3"] as! String)
             }
             cell.address.userInteractionEnabled = true
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "openMaps:")
-            cell.address.addGestureRecognizer(gestureRecognizer)
+            cell.address.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openMapsByAddressTouch:"))
+            
+            // Set map to correct location
+            let region = MKCoordinateRegion(center: servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!],
+                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            cell.mapView.setRegion(region, animated: true)
+            // Drop a pin
+            dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
+            cell.mapView.addAnnotation(dropPin)
+            cell.mapView.userInteractionEnabled = true
+            cell.mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openMapsByMapTouch:"))
         } else {
             cell.address.text = "N/A"
             cell.address.userInteractionEnabled = false
@@ -118,14 +127,6 @@ class ServicesTableViewController: UITableViewController {
         if serviceLocations[indexPath.row]["website"] != nil {
             cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
         }
-        // Set map to correct location
-        let region = MKCoordinateRegion(center: servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!],
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        cell.mapView.setRegion(region, animated: true)
-        // Drop a pin
-        dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
-        dropPin.title = (self.serviceLocations[indexPath.row]["name"] as! String)
-        cell.mapView.addAnnotation(dropPin)
         return cell
     }
     
@@ -179,8 +180,14 @@ class ServicesTableViewController: UITableViewController {
         UIApplication.sharedApplication().openURL(NSURL(string: "tel://" + number!)!)
     }
     
-    func openMaps(sender: UITapGestureRecognizer) {
+    func openMapsByAddressTouch(sender: UITapGestureRecognizer) {
         let address = (sender.view as! UILabel).text?.replace(" ", replacement: "+")
+        let targetURL = NSURL(string: "http://maps.apple.com/?q=" + address!)!
+        UIApplication.sharedApplication().openURL(targetURL)
+    }
+    
+    func openMapsByMapTouch(sender: UITapGestureRecognizer) {
+        let address = (sender.view!.superview?.superview?.superview as! ServicesTableViewCell).address.text?.replace(" ", replacement: "+")
         let targetURL = NSURL(string: "http://maps.apple.com/?q=" + address!)!
         UIApplication.sharedApplication().openURL(targetURL)
     }
