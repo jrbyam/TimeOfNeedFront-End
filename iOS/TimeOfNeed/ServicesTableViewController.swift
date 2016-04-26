@@ -16,6 +16,7 @@ class ServicesTableViewController: UITableViewController {
     Class Constants
 */
     let cellID = "location"
+    let dropPin = MKPointAnnotation()
 /*
     Class Variables
 */
@@ -42,22 +43,33 @@ class ServicesTableViewController: UITableViewController {
         } else if serviceLocations.count == 0 {
             // Show a sorry message
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+        
         if (locationToShow != "") {
             var idx = 0;
             for location in serviceLocations {
                 if (location["name"] as! String) == locationToShow { break }
-                idx++
+                ++idx
             }
-            print(idx)
             let scrollPath = NSIndexPath(forItem: idx, inSection: 0)
             self.tableView(self.tableView, didSelectRowAtIndexPath: scrollPath)
             self.tableView.scrollToRowAtIndexPath(scrollPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
             locationToShow = ""
         }
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        if (locationToShow != "") {
+//            var idx = 0;
+//            for location in serviceLocations {
+//                if (location["name"] as! String) == locationToShow { break }
+//                ++idx
+//            }
+//            let scrollPath = NSIndexPath(forItem: idx, inSection: 0)
+//            self.tableView(self.tableView, didSelectRowAtIndexPath: scrollPath)
+//            self.tableView.scrollToRowAtIndexPath(scrollPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+//            locationToShow = ""
+//        }
+//    }
 /*
     TableView Functions
 */
@@ -71,11 +83,18 @@ class ServicesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! ServicesTableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.serviceName.text = (serviceLocations[indexPath.row]["name"] as! String)
         cell.distance.text = String(format:"%.2f",
             (servicesCoordinates[(serviceData.indexOf(serviceLocations[indexPath.row]))!]).distanceInMetersFrom(startingCoordinates) * 0.000621371) // Convert to miles
         if serviceLocations[indexPath.row]["phone"] != nil {
             cell.phoneNumber.text = (serviceLocations[indexPath.row]["phone"] as! String)
+            cell.phoneNumber.userInteractionEnabled = true
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "callNumber:")
+            cell.phoneNumber.addGestureRecognizer(gestureRecognizer)
+        } else  {
+            cell.phoneNumber.text = "N/A"
+            cell.phoneNumber.userInteractionEnabled = false
         }
         if serviceLocations[indexPath.row]["address_line1"] != nil {
             cell.address.text! = (serviceLocations[indexPath.row]["address_line1"] as! String)
@@ -85,6 +104,12 @@ class ServicesTableViewController: UITableViewController {
             if serviceLocations[indexPath.row]["address_line3"] != nil {
                 cell.address.text! += ", " + (serviceLocations[indexPath.row]["address_line3"] as! String)
             }
+            cell.address.userInteractionEnabled = true
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "openMaps:")
+            cell.address.addGestureRecognizer(gestureRecognizer)
+        } else {
+            cell.address.text = "N/A"
+            cell.address.userInteractionEnabled = false
         }
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("showExtraInfo:"))
         cell.moreArrow.userInteractionEnabled = true
@@ -98,7 +123,6 @@ class ServicesTableViewController: UITableViewController {
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         cell.mapView.setRegion(region, animated: true)
         // Drop a pin
-        let dropPin = MKPointAnnotation()
         dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
         dropPin.title = (self.serviceLocations[indexPath.row]["name"] as! String)
         cell.mapView.addAnnotation(dropPin)
@@ -147,5 +171,17 @@ class ServicesTableViewController: UITableViewController {
         selectedIndexPath = indexPath
         expandCurrentCell = true;
         tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+    }
+    
+    func callNumber(sender: UITapGestureRecognizer) {
+        (sender.view as! UILabel).textColor = UIColor.blueColor()
+        let number = (sender.view as! UILabel).text
+        UIApplication.sharedApplication().openURL(NSURL(string: "tel://" + number!)!)
+    }
+    
+    func openMaps(sender: UITapGestureRecognizer) {
+        let address = (sender.view as! UILabel).text?.replace(" ", replacement: "+")
+        let targetURL = NSURL(string: "http://maps.apple.com/?q=" + address!)!
+        UIApplication.sharedApplication().openURL(targetURL)
     }
 }

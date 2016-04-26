@@ -12,19 +12,18 @@ import CoreLocation
 class MainViewController: UIViewController  {
   
     let locationManager = CLLocationManager()
-    let labelNames : [String] = ["Shelter", "Food", "Clothing", "Medical Facilities", "Support Groups", "Employment Assistance", "Transportation Assistance", "Showers", "Suicide Prevention", "Domestic Violence Resources", "Veteran Services", "Referal Services"]
-    let pictureNames : [String] = ["shelter_icon.png", "food_icon.png", "clothing_icon.png", "medical_facilities_icon.png", "support_groups_icon.png", "employment_assistance_icon.png", "transportation_assistance_icon.png", "showers_icon.png", "suicide_prevention_icon.png", "domestic_violence_resources_icon.png", "veteran_services_icon.png", "referral_services_icon.png"]
 /*
     Outlets:
 */
     @IBOutlet var container: UIView!
+    @IBOutlet var loadingScreen: UIView!
 
 /*
     Class Functions:
 */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        container.userInteractionEnabled = false
         // Check the network before continuing
         dispatch_async(dispatch_get_main_queue()) {
             if !networkConnected {
@@ -43,6 +42,11 @@ class MainViewController: UIViewController  {
         if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") == nil) {
             NSUserDefaults.standardUserDefaults().setValue(true, forKey: "showQuickKill")
         }
+        for labelName in labelNames {
+            if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) == nil {
+                NSUserDefaults.standardUserDefaults().setValue(true, forKey: "show" + labelName.removeWhitespace())
+            }
+        }
         
         // If not already granted, ask for permission to use current location
         if CLLocationManager.authorizationStatus() == .NotDetermined {
@@ -52,9 +56,15 @@ class MainViewController: UIViewController  {
         // Get starting location from defautls if it is set
         if NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") != nil {
             let startingCoordinatesDict = NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") as! Dictionary<String, NSNumber>
-            startingCoordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!), longitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!))
+            startingCoordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!), longitude: CLLocationDegrees(startingCoordinatesDict["longitude"]!))
         } else if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
-            startingCoordinates = (locationManager.location?.coordinate)!
+            //startingCoordinates = (locationManager.location?.coordinate)!
+        }
+        
+        // Hide loading screen when done loading.
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            self.loadingScreen.hidden = true
+            self.container.userInteractionEnabled = true // Make menu selectable when loading screen hides
         }
     }
     
@@ -75,11 +85,9 @@ class MainViewController: UIViewController  {
         var picturesToShow = [String]()
         var idx = 0
         for labelName in labelNames {
-            if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) != nil {
-                if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) as! Bool {
-                    categoriesToShow.append(labelName)
-                    picturesToShow.append(pictureNames[idx])
-                }
+            if NSUserDefaults.standardUserDefaults().valueForKey("show" + labelName.removeWhitespace()) as! Bool {
+                categoriesToShow.append(labelName)
+                picturesToShow.append(pictureNames[idx])
             }
             idx++
         }

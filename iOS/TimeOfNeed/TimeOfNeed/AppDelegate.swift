@@ -59,42 +59,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 */
     // updateContent
     func updateContent() {
-        let filePath = "http://ton.cs.uaf.edu/api/getlocations"
-        loadDataFromJson(filePath)
-//        if NSUserDefaults.standardUserDefaults().objectForKey("serviceData") != nil { // There has been data previously stored.
-//            let currentVersion = NSUserDefaults.standardUserDefaults().objectForKey("currentVersion") as! String
-//            
-//            // If the current version is less than the new one, an update is needed.
-//            if today.compare(nextUpdateDate) != NSComparisonResult.OrderedAscending {
-//                if displayOldData { // Set in the checkNetwork function in ViewController.swift
-//                    print("Displaying old content")
-//                } else {
-//                    print("Updating stored data...")
-//                    loadDataFromJson(filePath)
-//                }
-//            } else {
-//                print("Data is current.  No update needed.")
-//            }
-//        } else { // There is no previously stored data.
-//            print("Retrieving data for first time...")
-//            loadDataFromJson(filePath)
-//        }
-//        
-//        // If this is the first time retreiving data (there is none already present) but the server could not be connected to,
-//        // there is nothing further to be done.  cannotContinue is set to true here and handled in ViewController.swift.
-//        if (!connectedToServer && NSKeyedUnarchiver.unarchiveObjectWithFile(getFileUrl("projectData").path!) == nil) {
-//            cannotContinue = true
-//            return
-//        }
-//        
-//        // Each of the global dictionaries responsable for holding the data are set here from the archived data to be used
-//        // throughout the application for the remainder of the instance of the application.
-//        projectData = NSKeyedUnarchiver.unarchiveObjectWithFile(getFileUrl("projectData").path!) as! Dictionary
-//        scientistInfo = NSKeyedUnarchiver.unarchiveObjectWithFile(getFileUrl("scientist").path!) as! Dictionary
-//        for title in projectData.keys.sort() { // orderedTitles is populated by sorting the titles from projectData
-//            orderedTitles.append(title)
-//        }
-
+        let locationsPath = "http://ton.cs.uaf.edu/api/getlocations"
+        let versionPath = "http://ton.cs.uaf.edu/api/getdataversion"
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("serviceData") != nil { // There has been data previously stored.
+            let oldVersion = (NSUserDefaults.standardUserDefaults().objectForKey("currentVersion") as! NSInteger)
+            let currentVersion = loadVersion(versionPath);
+            
+            // If the current version is less than the new one, an update is needed.
+            if  oldVersion < currentVersion {
+                if displayOldData { // Set in the checkNetwork function in MainViewController.swift
+                    print("Displaying old content")
+                } else {
+                    print("Updating stored data...")
+                    loadDataFromJson(locationsPath)
+                }
+            } else {
+                print("Data is current or could not retrieve version.")
+            }
+        } else { // There is no previously stored data.
+            print("Retrieving data for first time...")
+            loadVersion(versionPath)
+            loadDataFromJson(locationsPath)
+        }
+        
+        // If this is the first time retreiving data (there is none already present) but the server could not be connected to,
+        // there is nothing further to be done.  cannotContinue is set to true here and handled in ViewController.swift.
+        if !connectedToServer && NSUserDefaults.standardUserDefaults().objectForKey("serviceData") == nil {
+            cannotContinue = true
+            return
+        }
+        
+        // The global dictionary responsable for holding the data is set here from the archived data to be used
+        // throughout the application for the remainder of the instance of the application.
+        serviceData = NSUserDefaults.standardUserDefaults().valueForKey("serviceData") as! Array<NSMutableDictionary>
+        
+        // Add coordinates for each based on address
+        for location in serviceData {
+            servicesCoordinates.append(CLLocationCoordinate2D()) // Include a placeholder
+            if location["address_line1"] != nil {
+                let address = (location["address_line1"] as! String) + ", " + (location["address_line3"] as! String)
+                CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+                    if (error) != nil {
+                        print("Error", error)
+                    }
+                    if let placemark = placemarks?.first {
+                        servicesCoordinates[serviceData.indexOf(location)!] = placemark.location!.coordinate
+                    }
+                })
+            }
+        }
     }
     // loadDataFromJson
     // This function establishes a connection with the VM, loads the content into a dictionary and saves data from that dictionary into storage.
@@ -112,24 +126,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             return
         }
         let jsonDict: NSMutableDictionary = (try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as! NSMutableDictionary
-        // Add coordinates for each based on address
-        for location : NSMutableDictionary in (jsonDict["locations"] as! [NSMutableDictionary]) {
-            servicesCoordinates.append(CLLocationCoordinate2D()) // Include a placeholder
-            if location["address_line1"] != nil {
-                let address = (location["address_line1"] as! String) + ", " + (location["address_line3"] as! String)
-                CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
-                    if (error) != nil {
-                        print("Error", error)
-                    }
-                    if let placemark = placemarks?.first {
-                        servicesCoordinates[serviceData.indexOf(location)!] = placemark.location!.coordinate
-                    }
-                })
-            }
-        }
         // Load data into persistant storage
         serviceData = (jsonDict["locations"] as! Array<NSMutableDictionary>)
         NSUserDefaults.standardUserDefaults().setObject(serviceData, forKey: "serviceData")
+    }
+    // loadVersion
+    func loadVersion(filePath: String) -> NSInteger {
+        var data : NSData?
+        var currentVersion : NSInteger = 0
+        do {
+            data = try NSData(contentsOfURL: NSURL(string: filePath)!, options: NSDataReadingOptions.DataReadingUncached)
+        } catch {
+            print(error)
+        }
+        if (data == nil) {
+            print("Error: Could not update data because the downloaded json data was nil")
+            connectedToServer = false
+            return 0;
+        }
+        data!.getBytes(&currentVersion, length: sizeof(NSInteger))
+        NSUserDefaults.standardUserDefaults().setObject(currentVersion, forKey: "currentVersion")
+        return currentVersion
     }
     // getFileUrl
     // This function retrieves a valid url from the document directory.
