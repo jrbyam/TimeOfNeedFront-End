@@ -12,6 +12,7 @@ import MapKit
 class ServicesTableViewCell: UITableViewCell {
     @IBOutlet weak var serviceName: UILabel!
     @IBOutlet weak var distance: UILabel!
+    @IBOutlet var mi: UILabel!
     @IBOutlet weak var extraInfoView: UIView!
     @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var hoursTimes: UILabel!
@@ -24,6 +25,7 @@ class ServicesTableViewCell: UITableViewCell {
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var website: UILabel!
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var noMapView: UIView!
     class var expandedHeight: CGFloat { get { return 350 } }
     class var quickLookHeight: CGFloat { get { return 150 } }
     class var defaultHeight: CGFloat { get { return 60 } }

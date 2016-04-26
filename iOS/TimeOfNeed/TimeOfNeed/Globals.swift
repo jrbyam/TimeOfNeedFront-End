@@ -11,7 +11,7 @@ import CoreLocation
 
 let group = dispatch_group_create()
 
-let labelNames : [String] = ["Shelter", "Food", "Clothing Closets / Assistance Programs", "Medical Facilities", "Support Groups", "Employment Assistance", "Transportation Assistance", "Shower Facilities", "Suicide Prevention", "Domestic Violence Resources", "Veteran Services", "Referal Services"]
+let labelNames : [String] = ["Shelter", "Food", "Clothing Closets / Assistance Programs", "Medical Facilities", "Support Groups", "Employment Assistance", "Transportation Assistance", "Shower Facilities", "Suicide Prevention", "Domestic Violence Resources", "Veteran Services", "Referral Services"]
 
 let NOTREACHABLE: Int = 0
 

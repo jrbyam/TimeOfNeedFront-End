@@ -28,10 +28,15 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
     Class Functions
 */
     override func viewDidLoad() {
+        var locationsWithoutAddresses = [NSMutableDictionary]()
         for location : NSMutableDictionary in serviceData {
             for service : String in (location["services"] as! [String]) {
                 if (service == serviceSelected) {
-                    serviceLocations += [location];
+                    if (location["address_line1"] != nil && (location["address_line1"] as! NSString).substringToIndex(4) != "P.O.") {
+                        serviceLocations += [location]
+                    } else {
+                        locationsWithoutAddresses += [location]
+                    }
                     break;
                 }
             }
@@ -40,9 +45,8 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         if serviceLocations.count > 1 {
             serviceLocations.sortInPlace({ (servicesCoordinates[serviceData.indexOf($0)!]).distanceInMetersFrom(startingCoordinates) <
                 (servicesCoordinates[serviceData.indexOf($1)!]).distanceInMetersFrom(startingCoordinates) })
-        } else if serviceLocations.count == 0 {
-            // Show a sorry message
         }
+        serviceLocations = locationsWithoutAddresses + serviceLocations // Add address-less locations to top of list
         
         if (locationToShow != "") {
             var idx = 0;
@@ -57,19 +61,18 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         }
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        if (locationToShow != "") {
-//            var idx = 0;
-//            for location in serviceLocations {
-//                if (location["name"] as! String) == locationToShow { break }
-//                ++idx
-//            }
-//            let scrollPath = NSIndexPath(forItem: idx, inSection: 0)
-//            self.tableView(self.tableView, didSelectRowAtIndexPath: scrollPath)
-//            self.tableView.scrollToRowAtIndexPath(scrollPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
-//            locationToShow = ""
-//        }
-//    }
+    override func viewDidAppear(animated: Bool) {
+        if serviceLocations.count == 0 {
+            let sorry = UILabel(frame: CGRect.zero)
+            sorry.text = "Sorry, there are no locations with this service."
+            sorry.numberOfLines = 4
+            sorry.textAlignment = .Center
+            sorry.layer.bounds = self.view.layer.bounds
+            sorry.center = CGPoint(x: self.view.layer.bounds.size.width / 2, y: self.view.layer.bounds.size.height / 2)
+            self.view.addSubview(sorry)
+        }
+    }
+    
 /*
     TableView Functions
 */
@@ -96,6 +99,10 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
             cell.phoneNumber.text = "N/A"
             cell.phoneNumber.userInteractionEnabled = false
         }
+        
+        cell.noMapView.hidden = false
+        cell.distance.hidden = true
+        cell.mi.hidden = true
         if serviceLocations[indexPath.row]["address_line1"] != nil {
             cell.address.text! = (serviceLocations[indexPath.row]["address_line1"] as! String)
             if serviceLocations[indexPath.row]["address_line2"] != nil {
@@ -107,15 +114,20 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
             cell.address.userInteractionEnabled = true
             cell.address.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openMapsByAddressTouch:"))
             
-            // Set map to correct location
-            let region = MKCoordinateRegion(center: servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!],
+            if (serviceLocations[indexPath.row]["address_line1"] as! NSString).substringToIndex(4) != "P.O." {
+                cell.noMapView.hidden = true
+                cell.distance.hidden = false
+                cell.mi.hidden = false
+                // Set map to correct location
+                let region = MKCoordinateRegion(center: servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!],
                                             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            cell.mapView.setRegion(region, animated: true)
-            // Drop a pin
-            dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
-            cell.mapView.addAnnotation(dropPin)
-            cell.mapView.userInteractionEnabled = true
-            cell.mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openMapsByMapTouch:"))
+                cell.mapView.setRegion(region, animated: true)
+                // Drop a pin
+                dropPin.coordinate = servicesCoordinates[serviceData.indexOf(serviceLocations[indexPath.row])!]
+                cell.mapView.addAnnotation(dropPin)
+                cell.mapView.userInteractionEnabled = true
+                cell.mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "openMapsByMapTouch:"))
+            }
         } else {
             cell.address.text = "N/A"
             cell.address.userInteractionEnabled = false
