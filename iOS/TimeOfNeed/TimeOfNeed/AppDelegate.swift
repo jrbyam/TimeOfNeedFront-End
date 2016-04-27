@@ -29,6 +29,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             self.updateContent()
         }
+        
+        // Set up initial ViewController variables
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController: UIViewController
+        var navigationController: UINavigationController
+        
+        // If first time opening the app
+        if(NSUserDefaults.standardUserDefaults().boolForKey("firstOpened") == false) {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "firstOpened")
+            
+            initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("TutorialPageViewController") as! TutorialPageViewController
+            self.window?.rootViewController = initialViewController
+            
+        }
+        else
+        {
+            initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
+            navigationController = UINavigationController(rootViewController: initialViewController)
+            self.window?.rootViewController = navigationController
+        }
+        
+        self.window?.makeKeyAndVisible()
+        
         return true;
     }
 
