@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Add coordinates for each based on address
         for location in serviceData {
             servicesCoordinates.append(CLLocationCoordinate2D()) // Include a placeholder
-            if location["address_line1"] != nil {
+            if location["address_line1"] != nil && (location["address_line1"] as! NSString).substringToIndex(4) != "P.O." {
                 let address = (location["address_line1"] as! String) + ", " + (location["address_line3"] as! String)
                 CLGeocoder().geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
                     if (error) != nil {
