@@ -57,8 +57,6 @@ class MainViewController: UIViewController  {
         if NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") != nil {
             let startingCoordinatesDict = NSUserDefaults.standardUserDefaults().objectForKey("startingCoordinates") as! Dictionary<String, NSNumber>
             startingCoordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(startingCoordinatesDict["latitude"]!), longitude: CLLocationDegrees(startingCoordinatesDict["longitude"]!))
-        } else if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
-            //startingCoordinates = (locationManager.location?.coordinate)!
         }
         
         // Hide loading screen when done loading.
@@ -169,6 +167,9 @@ class MainViewController: UIViewController  {
     // showServices
     // This function simply seques to the services scene 
     func showServices(sender: UITapGestureRecognizer) {
+        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+            startingCoordinates = (locationManager.location?.coordinate)!
+        }
         serviceSelected = ((sender.view as! UIStackView).arrangedSubviews.last as! UILabel).text!
         if (CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse) || startingCoordinates.latitude != 0.0 {
             performSegueWithIdentifier("services", sender: nil)
