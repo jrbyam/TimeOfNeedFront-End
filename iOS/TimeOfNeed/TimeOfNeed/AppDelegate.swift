@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         else
         {
             initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
-            navigationController = UINavigationController(rootViewController: initialViewController)
+            navigationController = mainStoryboard.instantiateViewControllerWithIdentifier("NavigationController") as! UINavigationController
             self.window?.rootViewController = navigationController
         }
         

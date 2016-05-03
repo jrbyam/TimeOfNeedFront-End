@@ -29,6 +29,16 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         definesPresentationContext = true
     }
     
+    override func viewDidAppear(animated: Bool) {
+        // Add tool bar buttons
+        var toolBarItemList = [ UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SearchViewController.settings)), // Settings Icon
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil) ]
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
+            toolBarItemList.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(SearchViewController.quickKill)))
+        }
+        self.toolbarItems = toolBarItemList
+    }
+    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         searchResults.rowHeight = 75
     }
@@ -101,7 +111,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             serviceName.adjustsFontSizeToFitWidth = true
             serviceName.minimumScaleFactor = 0.01
             serviceName.font = serviceName.font.fontWithSize(16) // Bigger than needed so it will scale down
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "showServiceLocation:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.showServiceLocation(_:)))
             serviceName.addGestureRecognizer(gestureRecognizer)
             serviceNames.append(serviceName)
         }
@@ -152,5 +162,16 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             self.presentViewController(dialog, animated: true, completion: nil)
         }
 
+    }
+    
+/*
+     Tool Bar Functions:
+*/
+    func settings() {
+        performSegueWithIdentifier("settings", sender: nil)
+    }
+
+    func quickKill() {
+        exit(0) // Sweet and simple
     }
 }

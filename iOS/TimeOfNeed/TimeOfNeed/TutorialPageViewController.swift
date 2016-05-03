@@ -10,7 +10,12 @@ import UIKit
 
 class TutorialPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    var tutorialImages = ["tutorial1","tutorial2"]
+    let tutorialImages = [ "main", "quickClose", "search", "settings", "startLocation" ]
+    let instructions = [ "Select a service to view locations near you.",
+                         "Press the exit icon to exit the app quickly.",
+                         "Press the search icon to search locations by name.",
+                         "Press the settings icon to customize main menu and set start location.",
+                         "If you don't allow access to your current location, set your start location in settings." ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,28 +23,14 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerData
         self.dataSource = self
         self.delegate = self
         
-        let startingViewController = getItemController(0)! as TutorialContentViewController //the first image
+        let startingViewController = getItemController(0)! as TutorialContentViewController
         let viewControllers: NSArray = [startingViewController]
-        self.setViewControllers(viewControllers as! [UIViewController], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-        
-        // Do any additional setup after loading the view.
+        self.setViewControllers(viewControllers as? [UIViewController], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         
@@ -69,8 +60,8 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerData
             let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("TutorialContentViewController") as! TutorialContentViewController
             pageItemController.itemIndex = itemIndex
             pageItemController.imageName = tutorialImages[itemIndex]
-            
-            if(itemIndex == (tutorialImages.count - 1))
+            pageItemController.instructionText = instructions[itemIndex]
+            if (itemIndex == (tutorialImages.count - 1))
             {
                 pageItemController.hideButton = false;
             } else {
@@ -83,7 +74,6 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerData
         return nil
     }
     
-    // MARK: - Page Indicator
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return tutorialImages.count
     }

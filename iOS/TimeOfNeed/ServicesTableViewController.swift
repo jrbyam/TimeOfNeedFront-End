@@ -71,6 +71,16 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
             sorry.center = CGPoint(x: self.view.layer.bounds.size.width / 2, y: self.view.layer.bounds.size.height / 2)
             self.view.addSubview(sorry)
         }
+        
+        // Add tool bar buttons
+        var toolBarItemList = [ UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ServicesTableViewController.settings)), // Settings Icon
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: #selector(ServicesTableViewController.search)),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil) ]
+        if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
+            toolBarItemList.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(ServicesTableViewController.quickKill)))
+        }
+        self.toolbarItems = toolBarItemList
     }
     
 /*
@@ -215,5 +225,20 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         if (urlText as NSString).substringToIndex(4) != "http" { urlText = "http://" + urlText }
         let urlToLoad = NSURL(string: urlText)
         UIApplication.sharedApplication().openURL(urlToLoad!)
+    }
+    
+/*
+     Tool Bar Functions:
+*/
+    func settings() {
+        performSegueWithIdentifier("settings", sender: nil)
+    }
+    
+    func search() {
+        performSegueWithIdentifier("search", sender: nil)
+    }
+    
+    func quickKill() {
+        exit(0) // Sweet and simple
     }
 }

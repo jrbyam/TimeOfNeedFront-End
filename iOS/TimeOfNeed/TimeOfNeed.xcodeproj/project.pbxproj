@@ -30,6 +30,8 @@
 		3BE532291CC458B800D4E15A /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE532281CC458B800D4E15A /* SearchViewCell.swift */; };
 		3BEF187D1C7311BB00301D15 /* ServicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF187C1C7311BB00301D15 /* ServicesTableViewCell.swift */; };
 		3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF187E1C731A1B00301D15 /* ServicesTableViewController.swift */; };
+		FECF52B81CD8360300C3F0C2 /* TutorialContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECF52B61CD8360300C3F0C2 /* TutorialContentViewController.swift */; };
+		FECF52B91CD8360300C3F0C2 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECF52B71CD8360300C3F0C2 /* TutorialPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		3BE532281CC458B800D4E15A /* SearchViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		3BEF187C1C7311BB00301D15 /* ServicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesTableViewCell.swift; sourceTree = "<group>"; };
 		3BEF187E1C731A1B00301D15 /* ServicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServicesTableViewController.swift; path = ../ServicesTableViewController.swift; sourceTree = "<group>"; };
+		FECF52B61CD8360300C3F0C2 /* TutorialContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialContentViewController.swift; sourceTree = "<group>"; };
+		FECF52B71CD8360300C3F0C2 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,8 @@
 				3BEF187C1C7311BB00301D15 /* ServicesTableViewCell.swift */,
 				3BEF187E1C731A1B00301D15 /* ServicesTableViewController.swift */,
 				3B889F721CAA031F0069003A /* StartLocationViewController.swift */,
+				FECF52B61CD8360300C3F0C2 /* TutorialContentViewController.swift */,
+				FECF52B71CD8360300C3F0C2 /* TutorialPageViewController.swift */,
 				3BA57F901C6449550017F8D4 /* Assets.xcassets */,
 				3BA57F921C6449550017F8D4 /* LaunchScreen.storyboard */,
 				3BA57F951C6449550017F8D4 /* Info.plist */,
@@ -246,7 +252,7 @@
 				TargetAttributes = {
 					3BA57F831C6449540017F8D4 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 56J3Q5XVYM;
+						DevelopmentTeam = 55XNUBZ6M9;
 					};
 					3BA57F991C6449550017F8D4 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -316,6 +322,7 @@
 				3B889F6D1CA9FD660069003A /* MKMapViewExtension.swift in Sources */,
 				3B889F731CAA031F0069003A /* StartLocationViewController.swift in Sources */,
 				3B8B10221C86745900B6BC51 /* SettingsCategoryTableViewController.swift in Sources */,
+				FECF52B91CD8360300C3F0C2 /* TutorialPageViewController.swift in Sources */,
 				3B8B10201C84EE4A00B6BC51 /* SettingsTableViewController.swift in Sources */,
 				3B0D3B131CA096D500B2ED40 /* Reachability.m in Sources */,
 				3B889F6F1CA9FD8D0069003A /* Location.swift in Sources */,
@@ -324,6 +331,7 @@
 				3B4491351CB2EA58009CD654 /* SearchViewController.swift in Sources */,
 				3BEF187F1C731A1B00301D15 /* ServicesTableViewController.swift in Sources */,
 				3B0A8EDB1CCC453C00227191 /* ContactController.swift in Sources */,
+				FECF52B81CD8360300C3F0C2 /* TutorialContentViewController.swift in Sources */,
 				3B620C611CA08BF80099FA51 /* Globals.swift in Sources */,
 				3B889F6B1CA9FCF30069003A /* AutoCompleteTextField.swift in Sources */,
 				3B0D3B171CA7557D00B2ED40 /* Extensions.swift in Sources */,

@@ -70,12 +70,12 @@ class MainViewController: UIViewController  {
     
     override func viewDidAppear(animated: Bool) {
         // Add tool bar buttons
-        var toolBarItemList = [ UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings"), // Settings Icon
+        var toolBarItemList = [ UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MainViewController.settings)), // Settings Icon
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: "search"),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Search, target: self, action: #selector(MainViewController.search)),
             UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil) ]
         if (NSUserDefaults.standardUserDefaults().valueForKey("showQuickKill") as! Bool) == true {
-            toolBarItemList.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "quickKill"))
+            toolBarItemList.append(UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(MainViewController.quickKill)))
         }
         self.toolbarItems = toolBarItemList
         
@@ -89,18 +89,18 @@ class MainViewController: UIViewController  {
                 categoriesToShow.append(labelName)
                 picturesToShow.append(pictureNames[idx])
             }
-            idx++
+            idx += 1
         }
         var contentRowStacks = [UIStackView]()
         var backgroundRowStacks = [UIStackView]()
         var rows = categoriesToShow.count / 3;
-        if categoriesToShow.count % 3 != 0 { rows++; }
+        if categoriesToShow.count % 3 != 0 { rows += 1; }
         idx = 0
-        for (var i = 0; i < rows; ++i) {
+        for (var i = 0; i < rows; i += 1) {
             var categoryViews = [UIStackView]()
             var categoryBackgrounds = [UIView]()
             var itemsInRow = 3;
-            if categoriesToShow.count - idx == 4 { itemsInRow--; } // If there are 4 left, put 2 in each of the last 2 rows
+            if categoriesToShow.count - idx == 4 { itemsInRow -= 1; } // If there are 4 left, put 2 in each of the last 2 rows
             for (var j = 0; j < itemsInRow; ++j) {
                 if (idx < categoriesToShow.count) {
                     let categoryBackground = UIView(frame: CGRectZero)
