@@ -482,7 +482,7 @@
 				INFOPLIST_FILE = TimeOfNeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CS472.TimeOfNeed;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.alaska.uaf.timeofneed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeOfNeed/TimeOfNeed-Bridging-Header.h";
@@ -500,7 +500,7 @@
 				INFOPLIST_FILE = TimeOfNeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CS472.TimeOfNeed;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.alaska.uaf.timeofneed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TimeOfNeed/TimeOfNeed-Bridging-Header.h";
