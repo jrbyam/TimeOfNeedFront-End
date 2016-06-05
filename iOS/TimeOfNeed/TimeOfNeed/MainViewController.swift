@@ -63,6 +63,7 @@ class MainViewController: UIViewController  {
         dispatch_group_notify(group, dispatch_get_main_queue()) {
             self.loadingScreen.hidden = true
             self.container.userInteractionEnabled = true // Make menu selectable when loading screen hides
+            print("Done loading data.")
         }
     }
     

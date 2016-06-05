@@ -14,8 +14,6 @@ class ServicesTableViewCell: UITableViewCell {
     @IBOutlet weak var distance: UILabel!
     @IBOutlet var mi: UILabel!
     @IBOutlet weak var extraInfoView: UIView!
-    @IBOutlet weak var hoursLabel: UILabel!
-    @IBOutlet weak var hoursTimes: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet var addressLabel: UILabel!
@@ -33,8 +31,6 @@ class ServicesTableViewCell: UITableViewCell {
     
     func checkHeight() {
         // Set hidden status of quick look elements
-        hoursLabel.hidden = frame.size.height < ServicesTableViewCell.quickLookHeight
-        hoursTimes.hidden = frame.size.height < ServicesTableViewCell.quickLookHeight
         phoneLabel.hidden = frame.size.height < ServicesTableViewCell.quickLookHeight
         phoneNumber.hidden = frame.size.height < ServicesTableViewCell.quickLookHeight
         addressLabel.hidden = frame.size.height < ServicesTableViewCell.quickLookHeight

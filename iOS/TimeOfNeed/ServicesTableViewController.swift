@@ -17,6 +17,7 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
 */
     let cellID = "location"
     let dropPin = MKPointAnnotation()
+    let days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
 /*
     Class Variables
 */
@@ -98,6 +99,22 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID, forIndexPath: indexPath) as! ServicesTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.serviceName.text = (serviceLocations[indexPath.row]["name"] as! String)
+        if serviceLocations[indexPath.row]["opening_time"] != nil && serviceLocations[indexPath.row]["closing_time"] != nil
+            && serviceLocations[indexPath.row]["days"] != nil {
+            if (serviceLocations[indexPath.row]["opening_time"] as! String) == "00:00:00" && (serviceLocations[indexPath.row]["closing_time"] as! String) == "00:00:00" {
+                cell.serviceDescription.text = "Hours: All hours\nDays Open:\n"
+            } else {
+                cell.serviceDescription.text = "Hours:\n" + (serviceLocations[indexPath.row]["opening_time"] as! String) + " - " + (serviceLocations[indexPath.row]["closing_time"] as! String) + "\n" + "Days Open:\n"
+            }
+            let daysOpen = serviceLocations[indexPath.row]["days"] as! Array<String>
+            for day in days {
+                if daysOpen.contains(day) {
+                    cell.serviceDescription.text = cell.serviceDescription.text! + day + "\n"
+                }
+            }
+        } else {
+            cell.serviceDescription.text = ""
+        }
         cell.distance.text = String(format:"%.2f",
             (servicesCoordinates[(serviceData.indexOf(serviceLocations[indexPath.row]))!]).distanceInMetersFrom(startingCoordinates) * 0.000621371) // Convert to miles
         if serviceLocations[indexPath.row]["phone"] != nil {
@@ -105,11 +122,11 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
             cell.phoneNumber.userInteractionEnabled = true
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: "callNumber:")
             cell.phoneNumber.addGestureRecognizer(gestureRecognizer)
+            cell.serviceDescription.text = cell.serviceDescription.text! + "\nPlease call for more information."
         } else  {
             cell.phoneNumber.text = "N/A"
             cell.phoneNumber.userInteractionEnabled = false
         }
-        
         cell.noMapView.hidden = false
         cell.distance.hidden = true
         cell.mi.hidden = true
@@ -145,7 +162,6 @@ class ServicesTableViewController: UITableViewController, MKMapViewDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("showExtraInfo:"))
         cell.moreArrow.userInteractionEnabled = true
         cell.moreArrow.addGestureRecognizer(tapGestureRecognizer)
-        cell.serviceDescription.text = "This is the cool description. It's descriptive. It describes this service. If you'd like to know more, check out our website below."
         if serviceLocations[indexPath.row]["website"] != nil {
             cell.website.hidden = false
             cell.website.text = (serviceLocations[indexPath.row]["website"] as! String)
