@@ -44,7 +44,7 @@ class StartLocationViewController: UIViewController {
     private var selectedPointAnnotation:MKPointAnnotation?
     private var dataTask:NSURLSessionDataTask?
     
-    private let googleMapsKey = "AIzaSyAVNnJ77t5aIYuMkLgotZSR7thDVC7ZlNo"
+    private let googleMapsKey = "AIzaSyDg2tlPcoqxx2Q2rfjhsAKS-9j0n3JA_a4"
     private let baseURLString = "https://maps.googleapis.com/maps/api/place/autocomplete/json"
     
     override func viewDidLoad() {
